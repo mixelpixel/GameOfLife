@@ -5,6 +5,7 @@ Wiki: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 A Ruby Tutorial  
 GitHub: https://github.com/ofcan/game-of-life-ruby  
 YouTube videos:  
+PLAYLIST: https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ  
 https://www.youtube.com/watch?v=iLXO2FLPulI Part1 - Introduction  
 https://www.youtube.com/watch?v=Q3Pkuhj16Xk Part2 - Basic file structure  
 https://www.youtube.com/watch?v=7kHmkskv8ug Part3 - World class  
