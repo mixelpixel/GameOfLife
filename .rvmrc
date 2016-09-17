@@ -1,3 +1,8 @@
 # https://gist.github.com/fnichol/1912050
+# patrick@ubuntu:~/Ruby/GameOfLife$ rvm gemset create game_of_life
+# patrick@ubuntu:~/Ruby/GameOfLife$ rvm gemset use game_of_life
+# patrick@ubuntu:~/Ruby/GameOfLife$ echo 'rvm ruby-2.3.0@game_of_life' >> .rvmrc
+# patrick@ubuntu:~/Ruby/GameOfLife$ cat .rvmrc
+# >>> rvm ruby-2.3.0@game_of_life
 
 rvm ruby-2.3.0@game_of_life
