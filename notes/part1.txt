@@ -1,0 +1,52 @@
+1234567890---------2---------3---------4---------5---------6---------7-2-------8---------9---------1
+PLAYLIST: https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+https://www.youtube.com/watch?v=iLXO2FLPulI Part1 - Introduction
+https://github.com/ofcan/game-of-life-ruby
+
+
+A Ruby Tutorial: Implementing John H. Conway's "Game of Life"
+
+
+https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+
+See also these Numberphile interviews with John H. Conway
+https://www.youtube.com/watch?v=R9Plq-D1gEk
+https://www.youtube.com/watch?v=E8kUJL04ELA
+
+
+A "zero player" game.
+You define the initial state, then observe its evolution.
+The game board is a grid consisting of cells which are either "alive" or "dead"
+(corresponding to one color or another - e.g. black and white).
+"Cells" change state, i.e. they are either "born" or they "die",
+and all this according to only four concise rules.
+
+
+Exclusively coded with Ruby, using two gems:
+1) rspec for TDD (Test Driven Development)
+2) gosu gaming library (for visual output)
+
+In particular I am using
+Ruby version 2.3.0
+irb 0.9.6
+rvm 1.27.0
+rspec 3.5.0
+Ubuntu 14.04
+
+
+The basic rules
+
+1) Any live cell with fewer than two live neighbours dies,
+   as if caused by under-population.
+
+2) Any live cell with two or three live neighbours lives on
+   to the next generation.
+
+3) Any live cell with more than three live neighbours dies,
+   as if by over-population.
+
+4) Any dead cell with exactly three live neighbours becomes
+   a live cell, as if by reproduction.
+
+
+

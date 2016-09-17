@@ -1,0 +1,55 @@
+1234567890---------2---------3---------4---------5---------6---------7-2-------8---------9---------1
+PLAYLIST: https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+https://www.youtube.com/watch?v=Q3Pkuhj16Xk Part2 - Basic file structure
+https://github.com/ofcan/game-of-life-ruby
+
+
+A Ruby Tutorial: Implementing John H. Conway's "Game of Life"
+
+
+The original inspiration for Sven was Ryan Bigg's 2011 live video:
+Live Coding Session #1 - Conway’s Game of Life
+https://vimeo.com/31403388 
+
+Note: Sven's video's and git repository were uploaded in 2013.
+Note: Sven uses vim.
+
+Basic file structure
+
+1) create a directory for the GameOfLife
+
+2) create a file game_of_life.rb
+# basic file
+
+3) create a file spec_game_of_life.rb
+# spec file.
+
+vim commands
+:E to display current working directory contents
+:e <name> opens or creates a file in vim
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+patrick@ubuntu:~/Ruby/GameOfLife$ rspec spec_game_of_life
