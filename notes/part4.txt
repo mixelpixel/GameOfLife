@@ -20,8 +20,40 @@ Let's tell the rspec file to check for this:
 
 If we test with rspec, it will fail:
 
+patrick@ubuntu:~/Ruby/GameOfLife$ rspec spec_game_of_life.rb
+F
 
-...then create the CELL GRID in the World class
+...so then create the CELL GRID in the World class
+"game_of_life.rb"
+  4   attr_accessor :rows, :cols, :cell_grid    # These methods are now accessible to rspec
+
+And now let's initialize the cell_grid:
+"game_of_life.rb"
+  8     @cell_grid = Array.new(rows) do |row|
+  9                    Array.new(cols) do |col|
+ 10                    end
+ 11                  end
+
+
+And now we test the cell_grid instance variable:
+"spec_game_of_life.rb"
+ 19     it 'should create proper cell_grid upon initialization' do
+ 20       expect(subject.cell_grid.is_a?(Array)).to be true
+ 21     end
+
+...and it passes the rspec test (now there are 3 examples)
+
+This only tests the main array. Let's test the nested arrays:
+"spec_game_of_life.rb"
+ 22       expect(subject.cell_grid.each do |row|
+ 23         row.is_a?(Array)).to be true
+ 24       end
+
+NOTE: Having trouble with expect vs. code block
+http://stackoverflow.com/questions/39556037/can-rspecs-expect-parse-a-block-to-confirm-a-nested-array-grid
+
+
+
 
 
 
