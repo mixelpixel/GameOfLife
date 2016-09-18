@@ -29,8 +29,10 @@ For rspec and Test-Driven Development (TDD)
 # spec file.
 
 NOTE: vim commands
-:E to display current working directory contents
-:e <name> opens or creates a file in vim
+:E - to display current working directory contents
+:e <name> - opens or creates a file in vim
+:version - displays lotsa info and where vim looks for the vimrc file
+:echo $HOME
 
 NOTE: vimrc
 "vim" = Vi IMproved...
