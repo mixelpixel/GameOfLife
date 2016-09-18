@@ -7,4 +7,21 @@ https://github.com/ofcan/game-of-life-ruby
 A Ruby Tutorial: Implementing John H. Conway's "Game of Life"
 
 
+In the World class, objects have ROWS & COLS.
+Together the sum of each (ROW, COL) pair creates a CELL_GRID.
+Let's tell the rspec file to check for this:
+"spec_game_of_life.rb"
+ 14     it 'should respond to proper methods' do
+ 15       expect(subject.respond_to?(:rows))
+ 16       expect(subject.respond_to?(:cols))
+ 17       expect(subject.respond_to?(:cell_grid))  # <----
+ 18       
+ 19     end
+
+If we test with rspec, it will fail:
+
+
+...then create the CELL GRID in the World class
+
+
 

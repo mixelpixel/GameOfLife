@@ -14,6 +14,8 @@ describe 'Game of Life' do
     it 'should respond to proper methods' do
       expect(subject.respond_to?(:rows))
       expect(subject.respond_to?(:cols))
+      expect(subject.respond_to?(:cell_grid))
+
     end
 
   end
