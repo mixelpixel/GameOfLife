@@ -147,22 +147,18 @@ AND NOW, to add the methods to the Class so they'll be accessible to rspec
  10 end
 
 
+NOTE: the World args rows/cols are just numbers and do not yet define the GRID.
+They way we define a grid is an array within an array, e.g.
+2.3.0 :001 > Array.new(3)
+ => [nil, nil, nil] 
+2.3.0 :002 > Array.new(5) do |x|
+2.3.0 :003 >     Array.new(3)
+2.3.0 :004?>   end
+ => [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
 
+It's arbitrary whether or not Array.new(5) will be rows or columns and Array.new(3) columns or rows respectively,
+BUT we choose one way and stick with it as a convention.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+end part3
 
 
