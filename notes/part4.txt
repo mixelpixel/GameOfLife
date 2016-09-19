@@ -52,8 +52,14 @@ This only tests the main array. Let's test the nested arrays:
 NOTE: Having trouble with expect vs. code block
 http://stackoverflow.com/questions/39556037/can-rspecs-expect-parse-a-block-to-confirm-a-nested-array-grid
 
+Per an answer from StackOverflow, this works:
+ 20       subject.cell_grid.each do |row|
+ 21         expect(row).to be_an(Array)
+ 22       end
 
+(I replaced "Array" with "Boolean" and Boolean resulted in a failure.)
 
+NOTE: MUCH TO LEARN - http://rspec.info/
 
 
 

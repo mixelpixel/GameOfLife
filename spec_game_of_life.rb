@@ -9,7 +9,7 @@ describe 'Game of Life' do
     subject { World.new }
 
     it 'should create a new world object' do
-      expect(subject.is_a?(World)).to be true
+      expect(subject.is_a?(World)).to be_truthy # not sure which is best
     end
     it 'should respond to proper methods' do
       expect(subject.respond_to?(:rows))
@@ -17,9 +17,11 @@ describe 'Game of Life' do
       expect(subject.respond_to?(:cell_grid))
     end
     it 'should create proper cell_grid upon initialization' do
-      expect(subject.cell_grid.is_a?(Array)).to be true
+      expect(subject.cell_grid.is_a?(Array)).to be_truthy #this or "be true"
 
-      expect{ subject.cell_grid.all? { |k| k.is_a?(Array) } }.to be true
+      subject.cell_grid.each do |row|
+        expect(row).to be_an(Array)
+      end
     end
 
   end
