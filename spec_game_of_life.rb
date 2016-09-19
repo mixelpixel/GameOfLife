@@ -16,16 +16,57 @@ describe 'Game of Life' do
       expect(subject.respond_to?(:cols))
       expect(subject.respond_to?(:cell_grid))
     end
+
     it 'should create proper cell_grid upon initialization' do
       expect(subject.cell_grid.is_a?(Array)).to be_truthy #this or "be true"
-
+    # THIS WHOLE SPEC CAN BE REFACTORED
       subject.cell_grid.each do |row|
         expect(row).to be_an(Array)
+        row.each do |col|
+          expect(col).to be_a(Cell)     # <-- be_a or be_an
+        end
       end
     end
 
   end
 
+  context 'cell' do
+    subject { Cell.new }
+
+    it 'should create a new cell object' do
+      expect(subject.is_a?(Cell)).to be_truthy
+    end
+
+  end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

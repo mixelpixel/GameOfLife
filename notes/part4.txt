@@ -53,13 +53,101 @@ NOTE: Having trouble with expect vs. code block
 http://stackoverflow.com/questions/39556037/can-rspecs-expect-parse-a-block-to-confirm-a-nested-array-grid
 
 Per an answer from StackOverflow, this works:
+# spec
  20       subject.cell_grid.each do |row|
  21         expect(row).to be_an(Array)
  22       end
 
 (I replaced "Array" with "Boolean" and Boolean resulted in a failure.)
 
-NOTE: MUCH TO LEARN - http://rspec.info/
+NOTE, MUCH TO LEARN - rspec resources:
+http://rspec.info/ and
+http://www.relishapp.com/rspec/rspec-expectations/v/3-5/docs/built-in-matchers/be-matchers
+Still not sure about "be true" and "be_truthy"
+https://www.relishapp.com/rspec/rspec-expectations/v/2-2/docs/matchers/be-matchers
+
+Onward: ...now we have confirmed that both arrays within cell_grid
+are actually arrays. Now @cell_grid defines cells, so it makes sense to
+have a Cell class.
+# basic
+  8     @cell_grid = Array.new(rows) do |row|
+  9                    Array.new(cols) do |col|
+ 10                      Cell.new
+ 11                    end
+ 12                  end
+
+Each row creates a new Array with columns and
+each column creates a cell.
+
+NOTE: now for testing with rspec we need to write a new "context"
+to test Cells with.
+
+NOTE: rspec can test specific lines of code, e.g. if we only want to spec
+line 33, we append the call to the spec.rb script with a colon and the line#
+rspec spec_game_of_life.rb:33 - Neat-O! In this case though the "it should"
+is passing because it is empty, so:
+
+# spec
+ 30   context 'cell' do
+ 31     subject { Cell.new }
+ 32 
+ 33     it 'should create a new cell object' do
+ 34       expect(subject.is_a?(Cell)).to be_truthy
+ 35     end
+ 36 
+ 37   end
+
+...and this spec file fails rspec, so let's build the Cell class:
+  1 # basic file
+  2 
+  3 class World
+  4   attr_accessor :rows, :cols, :cell_grid    # These methods are now accessible to rspec
+  5   
+  6   def initialize(rows=3, cols=3)            # default argument "=values"
+  7     @rows      = rows
+  8     @cols      = cols
+  9 
+ 10     @cell_grid = Array.new(rows) do |row|
+ 11                    Array.new(cols) do |col|
+ 12                      Cell.new
+ 13                    end
+ 14                  end
+ 15   end                                       # These variables are now initialized
+ 16 
+ 17 end
+ 18 
+ 19 class Cell                                  # MINIMUM REQUIRED FOR rspec TEST
+ 20 end
+
+
+@ 6m59s Sven gives a nice recap:
+We made a World class. We made a cell_grid within that World class which is accessible
+under World.cell_grid. The cell_grid consists of two arrays - an array nested within
+an array - and upon making the cell_grid, the inner array is populated with new Cell objects.
+We tested if the nested array is indeed an Array,
+so now let's test if it contains Cell objects:
+
+# spec
+ 20     it 'should create proper cell_grid upon initialization' do
+ 21       expect(subject.cell_grid.is_a?(Array)).to be_truthy #this or "be true"
+ 22 
+ 23       subject.cell_grid.each do |row|
+ 24         expect(row).to be_an(Array)
+ 25         row.each do |col|                # <---
+ 26           expect(col).to be_a(Cell)      # <---
+ 27         end                              # <---
+ 28       end
+ 29     end
+
+
+
+
+
+
+
+
+
+
 
 
 
