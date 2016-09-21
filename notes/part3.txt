@@ -1,10 +1,10 @@
 1234567890---------2---------3---------4---------5---------6---------7-2-------8---------9---------1
-PLAYLIST: https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
-https://www.youtube.com/watch?v=7kHmkskv8ug Part3 - World class
-https://github.com/ofcan/game-of-life-ruby
-
-
-A Ruby Tutorial: Implementing John H. Conway's "Game of Life"
+SVENs GITHUB: https://github.com/ofcan/game-of-life-ruby
+MY PLAYLIST:  https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+MY GITHUB:    https://github.com/mixelpixel/GameOfLife
+**A Ruby Tutorial: Implementing John H. Conway's "Game of Life"**
+PART 3 - World class
+https://youtu.be/7kHmkskv8ug?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
 
 
 Implementing the classes to make the game.
