@@ -14,8 +14,8 @@ Together the sum of each (ROW, COL) pair creates a CELL_GRID.
 Let's tell the rspec file to check for this:
 "spec_game_of_life.rb"
  14     it 'should respond to proper methods' do
- 15       expect(subject.respond_to?(:rows))
- 16       expect(subject.respond_to?(:cols))
+ 15       expect(subject.respond_to?(:rows))      # <- all these need to be refactored
+ 16       expect(subject.respond_to?(:cols))      # see part5.txt
  17       expect(subject.respond_to?(:cell_grid))  # <----
  18       
  19     end
