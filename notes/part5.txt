@@ -87,25 +87,95 @@ Comment it out, write the test, check the test (fail), uncomment it and test pas
  27 #    @alive == false
  28   end
 
-https://www.relishapp.com/rspec/rspec-expectations/v/3-5/docs/built-in-matchers/be-matchers
 # spec
  44     it'should initialize properly' do
  45       expect(subject.alive).to be_falsey
  46     end
 
+per: https://www.relishapp.com/rspec/rspec-expectations/v/3-5/docs/built-in-matchers/be-matchers
 
-Note: around 4m39s Sven tests the @alive default for true or false. I think he is getting at why
+  expect(obj).to be_truthy  # passes if obj is truthy (not nil or false)
+  expect(obj).to be_falsey  # passes if obj is falsy (nil or false)
+  expect(obj).to be_nil     # passes if obj is nil
+  expect(obj).to be         # passes if obj is truthy (not nil or false)
+
+I'm pretty sure (obj) in our case is (subject.alive)
+Maybe instead of subject, I should just use Cell.alive? That resulted in:
+patrick@ubuntu:~/Ruby/GameOfLife$ rspec spec_game_of_life.rb
+.....F
+
+Failures:
+
+  1) Game of Life cell should initialize properly
+     Failure/Error: expect(Cell.alive).to be_falsey
+
+     NoMethodError:
+       undefined method `alive' for Cell:Class
+     # ./spec_game_of_life.rb:45:in `block (3 levels) in <top (required)>'
+
+Finished in 0.00629 seconds (files took 0.12548 seconds to load)
+6 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec_game_of_life.rb:44 # Game of Life cell should initialize properly
+
+
+
+Note: around @4m39s Sven tests the @alive default for true or false. I think he is getting at why
 the changes have been made to "truthy" and "falsey" and I am also gonna test @ alive == "nil"
 Hmmm... @alive == true passes.
         @alive == nil passes... Hmm.
+Not sure what is going on here, of note, rspec does fail when I comment out the "attr_accessor :alive" line
+Check in irb:
+Oh wait!!!!!!!!!!!!!!!1
+I wrote @alive == false (a comparison, not the binding/assignment)!!!!!
+Now:
+patrick@ubuntu:~/Ruby/GameOfLife$ irb
+2.3.0 :001 > load 'game_of_life.rb'
+ => true 
+2.3.0 :002 > World.new
+ => #<World:0x0000000086c6f8 @rows=3, @cols=3, @cell_grid=[[#<Cell:0x0000000086c680 @alive=false>, #<Cell:0x0000000086c658 @alive=false>, #<Cell:0x0000000086c630 @alive=false>], [#<Cell:0x0000000086c568 @alive=false>, #<Cell:0x0000000086c540 @alive=false>, #<Cell:0x0000000086c518 @alive=false>], [#<Cell:0x0000000086c4a0 @alive=false>, #<Cell:0x0000000086c478 @alive=false>, #<Cell:0x0000000086c450 @alive=false>]]> 
+2.3.0 :003 > quit
+
+And... this check:
+
+ 26   def initialize
+ 27     @alive = true
+ 28   end
+
+FAILS! (like it should) Note that both @alive = false AND @alive = nil PASS rspec.
+Does this pass?
+# spec 
+ 44     it'should initialize properly' do
+ 45       expect(subject.alive).to be false
+ 46     end
+NOTE: this passes but neither true nor nil pass, BUT, be_falsey gives a better error msg. So back to:
+# spec
+ 44     it'should initialize properly' do
+ 45       expect(subject.alive).to be_falsey
+ 46     end
+
+ON WITH THE SHOW @6m04s:
+Since a cell is withing the context of a cell grid,
+it would be great to get the Cell coordinates - e.g. (x, y) - when the Cell objects are created.
+
+# spec
+ 40     it 'should respond to proper methods' do
+ 41       expect(subject).to respond_to(:alive)
+ 42       expect(subject).to respond_to(:x)
+ 43       expect(subject).to respond_to(:y)
+ 44     end
+
+Test fails (no :x)
+
+# basic
+ 24   attr_accessor :alive, :x, :y
+
+Test passes!
 
 
-
-
-
-
-
-
+Next video to cover :x and :y in the cell instance variable :)
 
 
 

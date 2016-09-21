@@ -21,10 +21,10 @@ class World
 end
 
 class Cell      # Minimum requirement for rspec
-  attr_accessor :alive
+  attr_accessor :alive, :x, :y
 
   def initialize
-    @alive == false
+    @alive = false
   end
 end
 

@@ -39,6 +39,8 @@ describe 'Game of Life' do
 
     it 'should respond to proper methods' do
       expect(subject).to respond_to(:alive)
+      expect(subject).to respond_to(:x)
+      expect(subject).to respond_to(:y)
     end
 
     it'should initialize properly' do
