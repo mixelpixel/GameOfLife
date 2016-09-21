@@ -1,10 +1,10 @@
 1234567890---------2---------3---------4---------5---------6---------7-2-------8---------9---------1
-PLAYLIST: https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
-https://www.youtube.com/watch?v=Q3Pkuhj16Xk Part2 - Basic file structure
-https://github.com/ofcan/game-of-life-ruby
-
-
-A Ruby Tutorial: Implementing John H. Conway's "Game of Life"
+SVENs GITHUB: https://github.com/ofcan/game-of-life-ruby
+MY PLAYLIST:  https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+MY GITHUB:    https://github.com/mixelpixel/GameOfLife
+**A Ruby Tutorial: Implementing John H. Conway's "Game of Life"**
+PART 2 - Basic file structure
+https://youtu.be/Q3Pkuhj16Xk?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
 
 
 The original inspiration for Sven was Ryan Bigg's 2011 live video:
