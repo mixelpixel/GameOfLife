@@ -22,7 +22,7 @@ Modify the "spec_game_of_life.rb" file:
   6   context 'world' do
   7     subject { World.new }
   8     it 'should create a new world object' do
-  9       subject.is_a?(World).should be_true
+  9       subject.is_a?(World).should be_true    # <- this may need to be refactored
  10     end
  11   end
  12 end
@@ -53,7 +53,7 @@ So, let's modify the rspec file:
   7   context 'world' do
   8     subject { World.new }
   9     it 'should create a new world object' do
- 10       subject.is_a?(World).should be_true 
+ 10       subject.is_a?(World).should be_true     # <- this may need to be refactored
  11     end
  12   end
  13 end
@@ -76,7 +76,7 @@ Trying:  failure... Ah... per the error message: instead of be_true, "be true" -
   7   context 'world' do
   8     subject { World.new }
   9     it 'should create a new world object' do
- 10       expect(subject.is_a?(World)).to be true
+ 10       expect(subject.is_a?(World)).to be true     # <- even w/"expect" thisis_a? may need to be refactored
  11     end
  12   end
  13 end
@@ -124,7 +124,7 @@ So:
  12       expect(subject.is_a?(World)).to be true
  13     end
  14     it 'should respond to proper methods' do
- 15       expect(subject.respond_to?(:rows))
+ 15       expect(subject.respond_to?(:rows))      # < - See part5.txt
  16       expect(subject.respond_to?(:cols))
  17     end
  18 
