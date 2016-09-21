@@ -1,5 +1,7 @@
 # GameOfLife
 John H. Conway's "Game of Life"  
+https://www.youtube.com/watch?v=R9Plq-D1gEk John H. Conway  
+https://www.youtube.com/watch?v=E8kUJL04ELA More from Mr. Conway  
 Wiki: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life  
   
 A Ruby Tutorial  
@@ -26,6 +28,4 @@ https://www.youtube.com/watch?v=wIbL4klYtQk Part17 - The Grand Finale
   
 other resources:   
 https://www.youtube.com/watch?v=SSPXwnYCGn8 Texas Instruments version  
-https://www.youtube.com/watch?v=R9Plq-D1gEk John H. Conway  
-https://www.youtube.com/watch?v=E8kUJL04ELA More from Mr. Conway  
-
+  
