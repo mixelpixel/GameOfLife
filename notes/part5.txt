@@ -87,14 +87,17 @@ Comment it out, write the test, check the test (fail), uncomment it and test pas
  27 #    @alive == false
  28   end
 
+https://www.relishapp.com/rspec/rspec-expectations/v/3-5/docs/built-in-matchers/be-matchers
 # spec
  44     it'should initialize properly' do
  45       expect(subject.alive).to be_falsey
  46     end
 
 
-
-
+Note: around 4m39s Sven tests the @alive default for true or false. I think he is getting at why
+the changes have been made to "truthy" and "falsey" and I am also gonna test @ alive == "nil"
+Hmmm... @alive == true passes.
+        @alive == nil passes... Hmm.
 
 
 
