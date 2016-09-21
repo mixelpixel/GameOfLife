@@ -1,4 +1,4 @@
-# spec file
+# spec file - I THINK THE is_a? calls need to be refactored.
 
 require 'rspec'
 require_relative 'game_of_life.rb'
@@ -12,9 +12,9 @@ describe 'Game of Life' do
       expect(subject.is_a?(World)).to be_truthy # not sure which is best
     end
     it 'should respond to proper methods' do
-      expect(subject.respond_to?(:rows))
-      expect(subject.respond_to?(:cols))
-      expect(subject.respond_to?(:cell_grid))
+      expect(subject).to respond_to(:rows)
+      expect(subject).to respond_to(:cols)
+      expect(subject).to respond_to(:cell_grid)
     end
 
     it 'should create proper cell_grid upon initialization' do
@@ -23,7 +23,7 @@ describe 'Game of Life' do
       subject.cell_grid.each do |row|
         expect(row).to be_an(Array)
         row.each do |col|
-          expect(col).to be_a(Cell)     # <-- be_a or be_an
+          expect(col).to be_a(Cell)     # <-- be_a or be_an, Neat-O
         end
       end
     end
@@ -35,6 +35,14 @@ describe 'Game of Life' do
 
     it 'should create a new cell object' do
       expect(subject.is_a?(Cell)).to be_truthy
+    end
+
+    it 'should respond to proper methods' do
+      expect(subject).to respond_to(:alive)
+    end
+
+    it'should initialize properly' do
+      expect(subject.alive).to be_falsey
     end
 
   end

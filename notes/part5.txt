@@ -3,8 +3,110 @@ SVENs GITHUB: https://github.com/ofcan/game-of-life-ruby
 MY PLAYLIST:  https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
 MY GITHUB:    https://github.com/mixelpixel/GameOfLife
 **A Ruby Tutorial: Implementing John H. Conway's "Game of Life"**
-PART 5 - Cell Class
+PART 5 - Cell Class Coordinates
 https://youtu.be/uwqfb3-Xjo0?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+
+
+
+RECAP: what's going on in cell_grid?
+The first line creates an array based on the value passed through "rows"
+Within each "row" array, the second line creates an array based on the value passed through "cols"
+Within each "col" array, a new "Cell" object is created. I.e.:
+With as many elements as there are "rows" the first line gives us
+[nil, nil, nil] or we could write this as
+[nil, 
+ nil, 
+ nil]
+...and then with as many elements as there are "cols", each "row" becomes
+[[nil, nil, nil],
+ [nil, nil, nil]
+ [nil, nil, nil]]
+and starts looking more like a two dimensional grid
+which then gets populated with with new Cell objects:
+[[Cell.new, Cell.new, Cell.new],
+ [Cell.new, Cell.new, Cell.new]
+ [Cell.new, Cell.new, Cell.new]]
+
+VIM NOTE: To replace each "nil" with "Cell.new", v for Visual Mode, select the range of "nil"s
+to be replaced, then enter :, :'<,'>' pops up, and then enter "s/nil/Cell.new/g" so that the
+command line looks like :'<,'>'s/nil/Cell.new/g
+
+
+Now, each Cell object is either alive or dead (on or off, true or false...)
+And we'll need a method (:alive) to define that binary state.
+
+
+OOOOOOF-AH PLEASE NOTE: The responds_to? syntax was doing me a disservice
+per https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers/respond-to-matcher
+
+I have changed the tests for the methods :rows, :cols, :cell_grid and now :alive from
+expect(subject.responds_to?(:method))
+to
+expect(subject).to respond_to(:method)
+
+NOTE the lack of a question mark, the .to and general difference there. Now, the test works relative
+to the attr_accessor declaration.
+Now all the responds_to calls in rspec look like so:
+# spec
+ 14     it 'should respond to proper methods' do
+ 15       expect(subject).to respond_to(:rows)
+ 16       expect(subject).to respond_to(:cols)
+ 17       expect(subject).to respond_to(:cell_grid)
+ 18     end
+...
+ 40     it 'should respond to proper methods' do
+ 41       expect(subject).to respond_to(:alive)
+
+And the rspec passes or fails according to line 24:
+# basic
+ 23 class Cell
+ 24   attr_accessor :alive
+ 25 end
+(feel free to change the "alive" name, or comment our line 24 to verify)
+
+NOTE:
+I'm suspecting that my rspec calls using "is_a?" should all be refactored...
+# spec
+ 11     it 'should create a new world object' do
+ 12       expect(subject.is_a?(World)).to be_truthy
+ 13     end
+...
+ 20     it 'should create proper cell_grid upon initialization' do
+ 21       expect(subject.cell_grid.is_a?(Array)).to be_truthy
+...
+ 36     it 'should create a new cell object' do
+ 37       expect(subject.is_a?(Cell)).to be_truthy
+ 38     end
+
+
+...Okay, back to Cell.new
+Let's initialize the Cell objects to a default state of "dead".
+Comment it out, write the test, check the test (fail), uncomment it and test pass.
+# basic
+ 26   def initialize
+ 27 #    @alive == false
+ 28   end
+
+# spec
+ 44     it'should initialize properly' do
+ 45       expect(subject.alive).to be_falsey
+ 46     end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
