@@ -1,10 +1,12 @@
 1234567890---------2---------3---------4---------5---------6---------7-2-------8---------9---------1
-PLAYLIST: https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
-https://www.youtube.com/watch?v=Tzs3_pl410M Part4 - World and Cell classes
-https://github.com/ofcan/game-of-life-ruby
+SVENs GITHUB: https://github.com/ofcan/game-of-life-ruby
+MY PLAYLIST:  https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+MY GITHUB:    https://github.com/mixelpixel/GameOfLife
+**A Ruby Tutorial: Implementing John H. Conway's "Game of Life"**
+PART 4 - World and Cell classes
+https://youtu.be/Tzs3_pl410M?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
 
 
-A Ruby Tutorial: Implementing John H. Conway's "Game of Life"
 
 
 In the World class, objects have ROWS & COLS.
