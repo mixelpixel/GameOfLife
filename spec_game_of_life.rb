@@ -30,7 +30,7 @@ describe 'Game of Life' do
 
   end
 
-  context 'cell' do
+  context 'Cell' do
     subject { Cell.new }
 
     it 'should create a new cell object' do
@@ -43,8 +43,20 @@ describe 'Game of Life' do
       expect(subject).to respond_to(:y)
     end
 
-    it'should initialize properly' do
+    it 'should initialize properly' do
       expect(subject.alive).to be_falsey
+      expect(subject.x).to be == 0
+      expect(subject.y).to be == 0
+    end
+  end
+
+  context 'Rules' do
+
+  let!(:game) { Game.new }
+
+    context 'Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.' do
+      it 'should kill a cell with one live neighbor' do
+      end
     end
 
   end

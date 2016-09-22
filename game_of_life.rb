@@ -1,9 +1,12 @@
 # basic file
 
-class World
-  attr_accessor :rows, :cols, :cell_grid    # These methods are now accessible to rspec
+class Game
+end
 
-  def initialize(rows=3, cols=3)            # default argument "=values"
+class World
+  attr_accessor :rows, :cols, :cell_grid
+
+  def initialize(rows=3, cols=3)
     @rows      = rows
     @cols      = cols
 
@@ -13,19 +16,23 @@ class World
 
     @cell_grid = Array.new(rows) do |row|
                    Array.new(cols) do |col|
-                     Cell.new
+                     Cell.new(col, row)
                    end
                  end
-  end                                       # These variables are now initialized
+  end
 
 end
 
-class Cell      # Minimum requirement for rspec
+
+class Cell
   attr_accessor :alive, :x, :y
 
-  def initialize
+  def initialize(x=0, y=0)
     @alive = false
+    @x = x
+    @y = y
   end
+
 end
 
 
