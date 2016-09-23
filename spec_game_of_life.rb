@@ -50,6 +50,24 @@ describe 'Game of Life' do
     end
   end
 
+  context 'Game' do
+    subject { Game.new }
+
+    it 'should create a new Game object' do
+      expect(subject.is_a?(Game)).to be_truthy
+    end
+
+    it 'should respond to proper methods' do
+      expect(subject).to respond_to(:world)
+      expect(subject).to respond_to(:seeds)
+    end
+
+    it 'should initialize properly' do
+      expect(subject.world).to be_a(World)
+      expect(subject.seeds).to be_a(Array)
+    end
+  end
+
   context 'Rules' do
 
   let!(:game) { Game.new }
