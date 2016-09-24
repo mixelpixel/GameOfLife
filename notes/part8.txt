@@ -8,4 +8,29 @@ https://youtu.be/1R5thzz6rcw?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
 
 
 
+start by writing the tests for the "seeding" of the game with cells. Upon initialization of a game
+we create a world with cells in it - and all of those cells are dead - so wel'll reference existing
+cells within this world and turn them from dead to alive (alive = true) and later we'll test if the
+cells with these coordinates are alive or dead:
+# spec
+ 69     it 'should plant seeds properly' do
+ 70       game = Game.new(world, [[1, 2], [0, 2]]
+ 71     end
+
+... at this point the spec variable 'world' is undefined, so let's define it:
+# rspec
+  1 # spec file
+  2 
+  3 require 'rspec'
+  4 require_relative 'game_of_life.rb'
+  5 
+  6 describe 'Game of Life' do
+  7 
+  8   context 'world' do
+  9     subject { World.new }
+ 10 
+ 11     let!(:world) { World.new }  # <--------
+
+
+
 

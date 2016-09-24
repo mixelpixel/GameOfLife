@@ -8,6 +8,8 @@ describe 'Game of Life' do
   context 'world' do
     subject { World.new }
 
+    let!(:world) { World.new }
+
     it 'should create a new world object' do
       expect(subject.is_a?(World)).to be_truthy # not sure which is best
     end
@@ -65,6 +67,11 @@ describe 'Game of Life' do
     it 'should initialize properly' do
       expect(subject.world).to be_a(World)
       expect(subject.seeds).to be_a(Array)
+
+    it 'should plant seeds properly' do
+      game = Game.new(world, [[1, 2], [0, 2]])
+    end
+
     end
   end
 
