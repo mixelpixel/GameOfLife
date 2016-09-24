@@ -156,6 +156,9 @@ NOTE: this passes but neither true nor nil pass, BUT, be_falsey gives a better e
  45       expect(subject.alive).to be_falsey
  46     end
 
+worth considering an equality matcher?
+https://www.relishapp.com/rspec/rspec-expectations/v/3-5/docs/built-in-matchers/equality-matchers
+
 ON WITH THE SHOW @6m04s:
 Since a cell is withing the context of a cell grid,
 it would be great to get the Cell coordinates - e.g. (x, y) - when the Cell objects are created.
