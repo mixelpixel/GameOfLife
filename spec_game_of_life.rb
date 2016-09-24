@@ -51,7 +51,8 @@ describe 'Game of Life' do
     end
 
     it 'should initialize properly' do
-      expect(subject.alive).to be_falsey
+#      expect(subject.alive).to be_falsey #<-- this accepts both false and nil
+      expect(subject.alive).to be == false
       expect(subject.x).to be == 0
       expect(subject.y).to be == 0
     end
