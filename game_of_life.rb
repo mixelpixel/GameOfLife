@@ -7,9 +7,9 @@ class Game
     @world     = world
     @seeds     = seeds
 
-    seeds.each do |seed|
-      world.cell_grid[seed[0]][seed[1]].alive = true
-    end
+#    seeds.each do |seed|
+#      world.cell_grid[seed[0]][seed[1]].alive = true
+#    end
   end
 
 end
@@ -44,9 +44,9 @@ class Cell
     @y = y
   end
 
-  def alive?
-    alive
-  end
+#  def alive?
+#    alive
+#  end
 
 end
 

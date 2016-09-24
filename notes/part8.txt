@@ -8,10 +8,30 @@ https://youtu.be/1R5thzz6rcw?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
 
 
 
-start by writing the tests for the "seeding" of the game with cells. Upon initialization of a game
-we create a world with cells in it - and all of those cells are dead - so wel'll reference existing
-cells within this world and turn them from dead to alive (alive = true) and later we'll test if the
-cells with these coordinates are alive or dead:
+Start by writing the tests for the "seeding" of the game with cells.
+
+CONCEPT: Upon initialization of a Game we create a "#<World" with a default "@cell_grid"
+(which is a nested array based on default number of "@rows" and "@cols")
+and which has "#<Cell"s in it, e.g.
+
+patrick@ubuntu:~/Ruby/GameOfLife$ irb
+2.3.0 :001 > load 'game_of_life.rb'
+ => true 
+2.3.0 :002 > g = World.new
+ => #<World:0x000000016f34d8 @rows=3, @cols=3,
+@cell_grid=[[#<Cell:0x000000016f3438 @alive=false, @x=0, @y=0>,
+             #<Cell:0x000000016f3410 @alive=false, @x=1, @y=0>,
+             #<Cell:0x000000016f33e8 @alive=false, @x=2, @y=0>],
+            [#<Cell:0x000000016f3398 @alive=false, @x=0, @y=1>,
+             #<Cell:0x000000016f3370 @alive=false, @x=1, @y=1>,
+             #<Cell:0x000000016f3348 @alive=false, @x=2, @y=1>],
+            [#<Cell:0x000000016f32f8 @alive=false, @x=0, @y=2>,
+             #<Cell:0x000000016f32d0 @alive=false, @x=1, @y=2>,
+             #<Cell:0x000000016f32a8 @alive=false, @x=2, @y=2>]]> 
+
+All of those #<Cells are dead ("@alive" == false >> true) so we'll reference existing
+cells within this world and turn them from dead to alive ("@alive" == true) and later we'll test if the
+cells with these coordinates are alive or dead. For starters, the test:
 # spec
  69     it 'should plant seeds properly' do
  70       game = Game.new(world, [[1, 2], [0, 2]]
@@ -32,5 +52,54 @@ cells with these coordinates are alive or dead:
  11     let!(:world) { World.new }  # <--------
 
 
-I NEED TO GO THROUGH THIS AGAIN...
+
+
+
+
+maybe I'm a little dyslexic, but I get turned around some by the rows/cols/x/y values.
+It helped me wrap my head around the indexes to load the game.rb into irb and initialize
+a World.new to a variable ("g") and display this:
+
+2.3.0 :028 > g.cell_grid[0][0]
+ => #<Cell:0x000000016f3438 @alive=false, @x=0, @y=0> 
+2.3.0 :029 > g.cell_grid[0][1]
+ => #<Cell:0x000000016f3410 @alive=false, @x=1, @y=0> 
+2.3.0 :030 > g.cell_grid[0][2]
+ => #<Cell:0x000000016f33e8 @alive=false, @x=2, @y=0> 
+2.3.0 :031 > g.cell_grid[1][0]
+ => #<Cell:0x000000016f3398 @alive=false, @x=0, @y=1> 
+2.3.0 :032 > g.cell_grid[1][1]
+ => #<Cell:0x000000016f3370 @alive=false, @x=1, @y=1> 
+2.3.0 :033 > g.cell_grid[1][2]
+ => #<Cell:0x000000016f3348 @alive=false, @x=2, @y=1> 
+2.3.0 :034 > g.cell_grid[2][0]
+ => #<Cell:0x000000016f32f8 @alive=false, @x=0, @y=2> 
+2.3.0 :035 > g.cell_grid[2][1]
+ => #<Cell:0x000000016f32d0 @alive=false, @x=1, @y=2> 
+2.3.0 :036 > g.cell_grid[2][2]
+ => #<Cell:0x000000016f32a8 @alive=false, @x=2, @y=2>
+
+
+
+
+
+So, now that the test passes, let's take a look at a new Game:
+patrick@ubuntu:~/Ruby/GameOfLife$ irb
+2.3.0 :001 > load 'game_of_life.rb'
+ => true 
+2.3.0 :002 > g= Game.new(World.new, [[1, 2], [0, 2]])
+ => #<Game:0x00000001bf4a90 @world=#<World:0x00000001bf4d88 @rows=3, @cols=3,
+@cell_grid=[[#<Cell:0x00000001bf4d10 @alive=false, @x=0, @y=0>,
+             #<Cell:0x00000001bf4ce8 @alive=false, @x=1, @y=0>,
+             #<Cell:0x00000001bf4cc0 @alive=true, @x=2, @y=0>],
+            [#<Cell:0x00000001bf4c48 @alive=false, @x=0, @y=1>,
+             #<Cell:0x00000001bf4c20 @alive=false, @x=1, @y=1>,
+             #<Cell:0x00000001bf4bf8 @alive=true, @x=2, @y=1>],
+            [#<Cell:0x00000001bf4ba8 @alive=false, @x=0, @y=2>,
+             #<Cell:0x00000001bf4b80 @alive=false, @x=1, @y=2>,
+             #<Cell:0x00000001bf4b58 @alive=false, @x=2, @y=2>]]>,
+@seeds=[[1, 2], [0, 2]]>
+
+
+
 
