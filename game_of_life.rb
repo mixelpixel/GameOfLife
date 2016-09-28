@@ -32,6 +32,9 @@ class World
                  end
   end
 
+  def neighbors_around_cell(cell)
+  end
+
 end
 
 

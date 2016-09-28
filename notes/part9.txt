@@ -35,9 +35,54 @@ To be clear, we're creating a Game where these two cell are alive:
  [ ALIVE  , Cell.new, Cell.new]  #  [[1][0], [1][1], [1][2]],
  [ ALIVE  , Cell.new, Cell.new]] #  [[2][0], [2][1], [2][2]]]
 
+...testing at this point will fail with undefined method: game.tick!
 
+Before we construct tick! to register the game state, tho, let's look at the
+rule condition and meet that: How many neighbors does a living cell have?
+We need to implement the counting of neighbors (because all of the rules
+rely on counting neighbors). For now, it makes sense to put this neightbor
+counting method in the World class. So, in the spec file within the context of 
+'World' we can add this to the "should respond to proper method"
+# spec
+ 18     it 'should respond to proper methods' do
+ 19       expect(subject).to respond_to(:rows)
+ 20       expect(subject).to respond_to(:cols)
+ 21       expect(subject).to respond_to(:cell_grid)
+ 22       expect(subject).to respond_to(:neighbor)
+ 23     end
 
+and since game.tick! is still pending, we can just rspec line 22
+rspec spec_game_of_life.rb:22
+...and it fails on :neighbor (our World does not yet respond to neighbor)
+So let's make the basic class:
+# game
+ 18 class World
+ 19   attr_accessor :rows, :cols, :cell_grid
+ 20 
+ 21   def initialize(rows=3, cols=3)
+      ...
+ 33   end
+ 34 
+ 35   def neighbors       # <--
+ 36   end                 # <--
+ 37 
+ 38 end
 
+...and now the command "rspec spec_game_of_life.rb:22" passes
+
+So, to get :neighbors functional, we'll need to return an array of each cells neighbors
+
+So let's rename neighbor to neighbor_around_cell and pass in a value of the cell
+we'd like to check:
+# rspec
+ 22       expect(subject).to respond_to(:neighbors_around_cell)
+
+We test the rspec, it fails and reports the method, so we write the method:
+# game
+ 35   def neighbors_around_cell(cell)
+ 36   end
+
+...and it passes, and that's all for now!
 
 
 

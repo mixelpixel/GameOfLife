@@ -19,6 +19,7 @@ describe 'Game of Life' do
       expect(subject).to respond_to(:rows)
       expect(subject).to respond_to(:cols)
       expect(subject).to respond_to(:cell_grid)
+      expect(subject).to respond_to(:neighbors_around_cell)
     end
 
     it 'should create proper cell_grid upon initialization' do
