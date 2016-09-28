@@ -88,6 +88,10 @@ describe 'Game of Life' do
 
     context 'Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.' do
       it 'should kill a cell with one live neighbor' do
+        game = Game.new(world, [[1, 0], [2, 0]])
+        game.tick!
+        expect(world.cell_grid[1][0]).to be_dead
+        expect(world.cell_grid[2][0]).to be_dead
       end
     end
   end
