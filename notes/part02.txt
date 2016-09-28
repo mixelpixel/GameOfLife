@@ -1,0 +1,123 @@
+1234567890---------2---------3---------4---------5---------6---------7-2-------8---------9---------1
+SVENs GITHUB: https://github.com/ofcan/game-of-life-ruby
+MY PLAYLIST:  https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+MY GITHUB:    https://github.com/mixelpixel/GameOfLife
+**A Ruby Tutorial: Implementing John H. Conway's "Game of Life"**
+PART 2 - Basic file structure
+https://youtu.be/Q3Pkuhj16Xk?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+
+
+The original inspiration for Sven was Ryan Bigg's 2011 live video:
+Live Coding Session #1 - Conway’s Game of Life
+https://vimeo.com/31403388 
+
+NOTE: Sven's video's and git repository were uploaded in 2013.
+NOTE: Sven uses vim.
+
+Basic file structure
+
+1) create a directory for the "Game of Life" project
+/home/patrick/Ruby/
+mkdir GameOfLife
+
+Ruby script
+2) create a file game_of_life.rb
+# basic file
+
+For rspec and Test-Driven Development (TDD)
+3) create a file spec_game_of_life.rb
+# spec file.
+
+NOTE: vim commands
+:E - to display current working directory contents
+:e <name> - opens or creates a file in vim
+:version - displays lotsa info and where vim looks for the vimrc file
+:echo $HOME
+
+NOTE: vimrc
+"vim" = Vi IMproved...
+"vi" = https://en.wikipedia.org/wiki/Vi
+"rc" == Run Command(s)
+per http://superuser.com/questions/144339/sayvimrcor-screenrc-what-does-the-rc-mean
+Modify /home/patrick/.vimrc to display line numbers
+  set number
+.vimrc language syntax takes a single double quote (") to start a comment string
+
+patrick@ubuntu:~/Ruby/GameOfLife$ rspec spec_game_of_life
+NOTE: the "rspec" is not installed yet. Some work to do first:
+
+NOTE: Installing "rvm"
+https://rvm.io/rvm/install
+https://rvm.io/integration/gnome-terminal
+http://stackoverflow.com/questions/34521806/installing-jekyll-on-ubuntu-14-04/34523631#34523631
+1: gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+2: \curl -sSL https://get.rvm.io | bash                     # install RVM (development version)
+3: rvm get head                                             # Make Sure RVM up to date
+NOTE: Updating Ruby to the latest version (Ubuntu 14.04 ships with Ruby 1.9.?)
+4: rvm install ruby                                         # will install latest version of ruby
+5: rvm list                                                 # versions of ruby installed by RVM
+6: rvm use ruby-2.3.0
+
+
+NOTE: Installing the "rspec" gem:
+
+1) Create a NEW gemset:
+patrick@ubuntu:~/Ruby/GameOfLife$ rvm gemset create game_of_life
+
+2) USE the new gemset:
+patrick@ubuntu:~/Ruby/GameOfLife$ rvm gemset use game_of_life
+
+3) List the existing gemsets in the directory:
+patrick@ubuntu:~/Ruby/GameOfLife$ gem list
+
+4) Create a .rvmrc (Ruby Version Manager Run Command)
+   Makes sure we always use this gem set when we're in this directory:
+patrick@ubuntu:~/Ruby/GameOfLife$ echo 'rvm ruby-2.3.0@game_of_life' >> .rvmrc
+
+5) confirm:
+patrick@ubuntu:~/Ruby/GameOfLife$ cat .rvmrc
+>>> rvm ruby-2.3.0@game_of_life
+
+NOTE: https://gist.github.com/fnichol/1912050 - Comments in .rvmrc files start with an octothorpe (#)
+
+
+NOTE: create a "Gemfile" which will install the "rspec" gem.
+1) vim Gemfile
+source 'http://rubygems.org'
+
+gem 'rspec'
+
+
+NOTE: This requires running the "bundle' command
+http://bundler.io/
+patrick@ubuntu:~/Ruby/GameOfLife$ gem install bundler
+
+patrick@ubuntu:~/Ruby/GameOfLife$ bundle
+
+
+NOTE: now when we run the rspec command it is working with no errors!
+patrick@ubuntu:~/Ruby/GameOfLife$ rspec spec_game_of_life
+
+
+patrick@ubuntu:~/Ruby/GameOfLife$ rspec spec_game_of_life
+
+NOTE: now we can add to the spec_game_of_life.rb file
+# spec file
+require 'rspec'
+
+describe 'Game of Life' do
+end
+
+
+
+NOTE: it is worth pointing out that this tutorial was created some 3+ years ago.
+Of interest, having set things up so with rvm, I now get this warning message when
+I navigate to the /home/patrick/Ruby/GameOfLife/ directory:
+"You are using '.rvmrc', it requires trusting, it is slower and it is not compatible with other ruby managers,
+you can switch to '.ruby-version' using 'rvm rvmrc to ruby-version'
+or ignore this warning with 'rvm rvmrc warning ignore /home/patrick/Ruby/GameOfLife/.rvmrc',
+'.rvmrc' will continue to be the default project file in RVM 1 and RVM 2,
+to ignore the warning for all files run 'rvm rvmrc warning ignore all.rvmrcs'."
+
+
+
