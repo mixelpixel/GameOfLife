@@ -1,0 +1,11 @@
+1234567890---------2---------3---------4---------5---------6---------7-2-------8---------9---------1
+SVENs GITHUB: https://github.com/ofcan/game-of-life-ruby
+MY PLAYLIST:  https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+MY GITHUB:    https://github.com/mixelpixel/GameOfLife
+**A Ruby Tutorial: Implementing John H. Conway's "Game of Life"**
+PART 10 - Counting the neighbours (continued)
+https://youtu.be/nOrBc8kMNx4?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+
+
+
+
