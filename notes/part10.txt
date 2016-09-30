@@ -157,32 +157,29 @@ rspec spec_game_of_life.rb:71 PASSES
 
 SOUTHWEST
 # spec
+ 78     it 'should detect a neighbor to the SOUTHWEST' do
+ 79       expect(subject.cell_grid[2][0]).to be_dead
+ 80       subject.cell_grid[2][0].alive = true
+ 81       expect(subject.cell_grid[2][0]).to be_alive
+ 82       expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
+ 83     end
 
-
-
+rspec spec_game_of_life.rb:78
 
 
 SOUTHEAST
 # spec
+ 85     it 'should detect a neighbor to the SOUTHEAST' do
+ 86       expect(subject.cell_grid[2][2]).to be_dead
+ 87       subject.cell_grid[2][2].alive = true
+ 88       expect(subject.cell_grid[2][2]).to be_alive
+ 89       expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
+ 90     end
+
+rspec spec_game_of_life.rb:85
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+I suppose I might ultimately change the ordering of these, but I'll see what the next tutorial reveals.
 
 
 
