@@ -37,7 +37,42 @@ describe 'Game of Life' do
       expect(subject.cell_grid[0][1]).to be_dead
       subject.cell_grid[0][1].alive = true
       expect(subject.cell_grid[0][1]).to be_alive
-      expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count).to == 1
+      expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
+    end
+
+    it 'should detect a neighbor to the SOUTH' do
+      expect(subject.cell_grid[2][1]).to be_dead
+      subject.cell_grid[2][1].alive = true
+      expect(subject.cell_grid[2][1]).to be_alive
+      expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
+    end
+
+    it 'should detect a neighbor to the WEST' do
+      expect(subject.cell_grid[1][0]).to be_dead
+      subject.cell_grid[1][0].alive = true
+      expect(subject.cell_grid[1][0]).to be_alive
+      expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
+    end
+
+    it 'should detect a neighbor to the EAST' do
+      expect(subject.cell_grid[1][2]).to be_dead
+      subject.cell_grid[1][2].alive = true
+      expect(subject.cell_grid[1][2]).to be_alive
+      expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
+    end
+
+    it 'should detect a neighbor to the NORTHWEST' do
+      expect(subject.cell_grid[0][0]).to be_dead
+      subject.cell_grid[0][0].alive = true
+      expect(subject.cell_grid[0][0]).to be_alive
+      expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
+    end
+
+    it 'should detect a neighbor to the NORTHEAST' do
+      expect(subject.cell_grid[0][2]).to be_dead
+      subject.cell_grid[0][2].alive = true
+      expect(subject.cell_grid[0][2]).to be_alive
+      expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
     end
 
   end

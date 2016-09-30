@@ -36,7 +36,8 @@ class World
     live_neighbors = []
 
     # it detects a neighbor to the North
-    if cell.y > 0                                    # No neighbors to the North of the TOP row (cell.y < 0)
+    # NOTE: no neighbors to the North of the TOP row (cell.y < 0)
+    if cell.y > 0 
       candidate = self.cell_grid[cell.y - 1][cell.x]
       live_neighbors << candidate if candidate.alive
     end
