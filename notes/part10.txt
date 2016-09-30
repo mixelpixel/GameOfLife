@@ -8,4 +8,103 @@ https://youtu.be/nOrBc8kMNx4?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
 
 
 
+Rename "neighbors aroud cell" to "live neighbors..."
+# game
+ 35   def live_neighbors_around_cell(cell)
+ 36   end
+# spec
+  7 describe 'Game of Life' do
+...
+ 18     it 'should respond to proper methods' do
+...
+ 22       expect(subject).to respond_to(:live_neighbors_around_cell)
+
+... and testing rspec spec_game_of_life.rb:18 passes.
+
+Start setting up the tests for neighbor cells
+# spec
+ 36     it 'should detect a neighbor to the NORTH' do
+ 37       subject.cell_grid[0][1].alive = true
+ 38       expect(subject.cell_grid[0][1].alive).to be_truthy
+ 39     end
+
+...and run rspec spec_game_of_life.rb:36 - it passes!
+
+ALSO - since we made the alive? method, this works:
+# spec
+ 36     it 'should detect a neighbor to the NORTH' do
+ 37       subject.cell_grid[0][1].alive = true
+ 38       expect(subject.cell_grid[0][1]).to be_alive
+ 39     end
+
+...NOW we should first confirm that the cell is DEAD before making
+it become alive (...alive = true)  on # spec: 37. If we rspec:
+# spec
+ 36     it 'should detect a neighbor to the NORTH' do
+ 37       expect(subject.cell_grid[0][1]).to be_dead
+ 38       subject.cell_grid[0][1].alive = true
+ 39       expect(subject.cell_grid[0][1]).to be_alive
+ 40     end
+
+...the test fails, so we need to make a "dead?" method in Cell:
+# game
+ 41 class Cell
+...
+ 54   def dead?; !alive; end
+
+... and the test passes
+
+NOTE: on style
+# game
+ 50   def alive?; alive; end
+ 51 
+ 52   def dead?; not alive; end
+
+ONWARD: we make the test for counting live neighbors:
+# spec
+ 36     it 'should detect a neighbor to the NORTH' do
+ 37       expect(subject.cell_grid[0][1]).to be_dead
+ 38       subject.cell_grid[0][1].alive = true
+ 39       expect(subject.cell_grid[0][1]).to be_alive
+ 40       expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count).to == 1
+ 41     end
+
+# game
+ 18 class World
+...
+ 35   def live_neighbors_around_cell(cell)
+ 36     live_neighbors = []
+ 37 
+ 38     # it detects a neighbor to the North
+ 39     if cell.y > 0                                    # No neighbors to the North of the TOP row (cell.y < 0)
+ 40       candidate = self.cell_grid[cell.y - 1][cell.x]
+ 41       live_neighbors << candidate if candidate.alive
+ 42     end
+ 43     
+ 44     live_neighbors
+ 45   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

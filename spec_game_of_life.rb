@@ -19,7 +19,7 @@ describe 'Game of Life' do
       expect(subject).to respond_to(:rows)
       expect(subject).to respond_to(:cols)
       expect(subject).to respond_to(:cell_grid)
-      expect(subject).to respond_to(:neighbors_around_cell)
+      expect(subject).to respond_to(:live_neighbors_around_cell)
     end
 
     it 'should create proper cell_grid upon initialization' do
@@ -31,8 +31,15 @@ describe 'Game of Life' do
           expect(col).to be_a(Cell)     # <-- be_a or be_an, Neat-O
         end
       end
-
     end
+
+    it 'should detect a neighbor to the NORTH' do
+      expect(subject.cell_grid[0][1]).to be_dead
+      subject.cell_grid[0][1].alive = true
+      expect(subject.cell_grid[0][1]).to be_alive
+      expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count).to == 1
+    end
+
   end
 
 
