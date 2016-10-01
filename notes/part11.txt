@@ -9,4 +9,85 @@ https://youtu.be/jdNj3LCUxXw?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
 
 
 Oh my... I was a little off about the directionals. Heh.
+I got the rspec tests right, but didn't complete the "live_neighbors..." method.
+For starters, since I at least got the geometry correct, I'll add the let option
+Sven uses:
+# spec
+  7 describe 'Game of Life' do
+  8 
+  9   let!(:world) { World.new }
+ 10   let!(:cell) { Cell.new(1, 1) }   # <-- Making a cell @ (1, 1) 
+
+So now, instead of this:
+# spec
+ 37     it 'should detect a neighbor to the NORTH' do
+ 38       expect(subject.cell_grid[0][1]).to be_dead
+ 39       puts
+ 40       puts subject.cell_grid[0][1].alive
+ 41       subject.cell_grid[0][1].alive = true
+ 42       puts
+ 43       puts subject.cell_grid[0][1].alive
+ 44       expect(subject.cell_grid[0][1]).to be_alive
+ 45       expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
+ 46     end
+
+(I added the puts statements just to see what was going on...)
+
+I'll do this to have a look around:
+# spec
+ 37     it 'should detect a neighbor to the NORTH' do
+ 38       expect(subject.cell_grid[cell.y - 1][cell.x]).to be_dead
+ 39       expect(subject.cell_grid[0][1]).to be_dead
+ 40       puts
+ 41       puts subject.cell_grid[0][1].x                      # <-- 1
+ 42       puts subject.cell_grid[0][1].y                      # <-- 0
+ 43       puts subject.cell_grid[cell.y - 1][cell.x].alive    # <-- false
+ 44       puts subject.cell_grid[0][1].alive                  # <-- false
+ 45       subject.cell_grid[cell.y - 1][cell.x].alive = true
+ 46       puts
+ 47       puts subject.cell_grid[0][1].alive                  # <-- true
+ 48       expect(subject.cell_grid[0][1]).to be_alive
+ 49       expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
+ 50     end
+
+... but after reviewing the video, I'll reduce it to this for now:
+# spec
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

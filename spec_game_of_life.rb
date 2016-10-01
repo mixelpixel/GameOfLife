@@ -7,6 +7,7 @@ require_relative 'game_of_life.rb'
 describe 'Game of Life' do
 
   let!(:world) { World.new }
+  let!(:cell) { Cell.new(1, 1) }
 
   context 'World' do
     subject { World.new }
@@ -34,8 +35,16 @@ describe 'Game of Life' do
     end
 
     it 'should detect a neighbor to the NORTH' do
+      expect(subject.cell_grid[cell.y - 1][cell.x]).to be_dead
       expect(subject.cell_grid[0][1]).to be_dead
-      subject.cell_grid[0][1].alive = true
+      puts
+      puts subject.cell_grid[0][1].x                      # <-- 1
+      puts subject.cell_grid[0][1].y                      # <-- 0
+      puts subject.cell_grid[cell.y - 1][cell.x].alive    # <-- false
+      puts subject.cell_grid[0][1].alive                  # <-- false
+      subject.cell_grid[cell.y - 1][cell.x].alive = true
+      puts
+      puts subject.cell_grid[0][1].alive                  # <-- true
       expect(subject.cell_grid[0][1]).to be_alive
       expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
     end
