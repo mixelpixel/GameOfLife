@@ -35,18 +35,10 @@ describe 'Game of Life' do
     end
 
     it 'should detect a neighbor to the NORTH' do
-      expect(subject.cell_grid[cell.y - 1][cell.x]).to be_dead
-      expect(subject.cell_grid[0][1]).to be_dead
-      puts
-      puts subject.cell_grid[0][1].x                      # <-- 1
-      puts subject.cell_grid[0][1].y                      # <-- 0
-      puts subject.cell_grid[cell.y - 1][cell.x].alive    # <-- false
-      puts subject.cell_grid[0][1].alive                  # <-- false
+      expect(subject.cell_grid[cell.y - 1][cell.x]).to be_dead     # <-- temporary
       subject.cell_grid[cell.y - 1][cell.x].alive = true
-      puts
-      puts subject.cell_grid[0][1].alive                  # <-- true
-      expect(subject.cell_grid[0][1]).to be_alive
-      expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
+      expect(subject.cell_grid[cell.y - 1][cell.x]).to be_alive    # <-- temporary
+      expect(subject.live_neighbors_around_cell(cell).count) == 1
     end
 
     it 'should detect a neighbor to the SOUTH' do

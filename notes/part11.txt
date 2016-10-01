@@ -52,10 +52,15 @@ I'll do this to have a look around:
 
 ... but after reviewing the video, I'll reduce it to this for now:
 # spec
+ 37     it 'should detect a neighbor to the NORTH' do
+ 38       expect(subject.cell_grid[cell.y - 1][cell.x]).to be_dead     # <-- temporary
+ 39       subject.cell_grid[cell.y - 1][cell.x].alive = true
+ 40       expect(subject.cell_grid[cell.y - 1][cell.x]).to be_alive    # <-- temporary
+ 41       expect(subject.live_neighbors_around_cell(cell).count) == 1
+ 42     end
 
-
-
-
+So this passes with only the North check of "live_neighbors_around_cell"
+but so do all the other ones - why?
 
 
 
