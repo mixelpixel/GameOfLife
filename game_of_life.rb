@@ -1,4 +1,4 @@
-# basic file
+# basic game of life game file
 
 class Game
   attr_accessor :world, :seeds
@@ -18,13 +18,13 @@ end
 class World
   attr_accessor :rows, :cols, :cell_grid
 
-  def initialize(rows=3, cols=3)
+  def initialize(rows=3, cols=3)     # Why the (rows, cols) here then (col, row) ???
     @rows      = rows
     @cols      = cols
 
-   # [[Cell.new, Cell.new, Cell.new], # [[[0][0], [0][1], [0][2]],
-   #  [Cell.new, Cell.new, Cell.new]  #  [[1][0], [1][1], [1][2]],
-   #  [Cell.new, Cell.new, Cell.new]] #  [[2][0], [2][1], [2][2]]]
+   # [[Cell.new, Cell.new, Cell.new], # [[[0][0], [1][0], [2][0]],
+   #  [Cell.new, Cell.new, Cell.new]  #  [[0][1], [1][1], [2][1]],
+   #  [Cell.new, Cell.new, Cell.new]] #  [[0][2], [1][2], [2][2]]]    (col, row) ???
     @cell_grid = Array.new(rows) do |row|
                    Array.new(cols) do |col|
                      Cell.new(col, row)
@@ -36,13 +36,14 @@ class World
     live_neighbors = []
 
     # it detects a neighbor to the North
-    # NOTE: no neighbors to the North of the TOP row (cell.y < 0)
+    # NOTE: there are no neighbors to the North of the TOP row (cell.y < 0)
     if cell.y > 0 
       candidate = self.cell_grid[cell.y - 1][cell.x]
       live_neighbors << candidate if candidate.alive
+      # the candidate is added to the live_neighbors list
     end
 
-    live_neighbors
+    live_neighbors # live neighbors is returned
   end
 
 end

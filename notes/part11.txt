@@ -59,8 +59,22 @@ I'll do this to have a look around:
  41       expect(subject.live_neighbors_around_cell(cell).count) == 1
  42     end
 
-So this passes with only the North check of "live_neighbors_around_cell"
-but so do all the other ones - why?
+So this passes with only the North check of "live_neighbors_around_cell" written:
+# game
+ 35   def live_neighbors_around_cell(cell)
+ 36     live_neighbors = []
+ 37 
+ 38     # it detects a neighbor to the North
+ 39     # NOTE: there are no neighbors to the North of the TOP row (cell.y < 0)
+ 40     if cell.y > 0
+ 41       candidate = self.cell_grid[cell.y - 1][cell.x]
+ 42       live_neighbors << candidate if candidate.alive
+ 43     end
+ 44 
+ 45     live_neighbors
+ 46   end
+
+...but so do all the other rspec tests - why?
 
 
 
