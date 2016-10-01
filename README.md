@@ -29,3 +29,8 @@ https://www.youtube.com/watch?v=wIbL4klYtQk Part17 - The Grand Finale
 other resources:   
 https://www.youtube.com/watch?v=SSPXwnYCGn8 Texas Instruments version  
   
+Of note from the tutorial author:  
+https://github.com/ofcan/game-of-life-ruby  
+http://stackoverflow.com/users/1028956/ofca  
+http://stackoverflow.com/questions/15422642/ruby-game-of-life-with-gosu-update-action-not-working  
+
