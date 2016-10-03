@@ -199,12 +199,153 @@ WHY????????
  89   end
 
 
-To investigate later.
+To investigate later. . .
+
+
 Onward...
 
+Running rspec we get the failure for the Rule #1 test we started:
+# rspec test msg:
+Failures:
+
+  1) Game of Life Rules Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population. should kill a cell with one live neighbor
+     Failure/Error: game.tick!
+
+     NoMethodError:
+       undefined method `tick!' for #<Game:0x0000000259a518>
+     # ./spec_game_of_life.rb:156:in `block (4 levels) in <top (required)>'
 
 
+So, onward with coding the FOUR RULES, we begin by defining "tick!":
+# game
+  3 class Game
+  4   attr_accessor :world, :seeds
+  5 
+  6   def initialize(world=World.new, seeds=[])
+  7     @world     = world
+  8     @seeds     = seeds
+  9 
+ 10     seeds.each do |seed|
+ 11       world.cell_grid[seed[0]][seed[1]].alive = true
+ 12     end
+ 13   end
+ 14 
+ 15   def tick!                  # <-- basic method for rspec
+ 16   end
+ 17 
+ 18 end
 
+... the rspec test fails with this msg:
+# rspec test msg:
+Failures:
+
+  1) Game of Life Rules Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population. should kill a cell with one live neighbor
+     Failure/Error: expect(world.cell_grid[1][0]).to be_dead
+       expected `#<Cell:0x000000024351a0 @alive=true, @x=0, @y=1>.dead?` to return true, got false
+     # ./spec_game_of_life.rb:157:in `block (4 levels) in <top (required)>'
+
+NOTE: @2m31s ...so we need "tick!" to kill off cells per Rule #1
+How do we do that?
+1) We iterate over each cell within the Game.world
+2) detect if that cell is alive
+3) detect if that cell has fewer than two live neighbors
+4) if so, kill that cell.
+
+For starters:
+# game
+ 15   def tick!
+ 16     world.cells.each do |cell|
+ 17       # Rule 1
+ 18       if cell.alive && world.live_neighbors_arouns_cell(cell).count < 2
+ 19         cell.die
+ 20       end
+ 21     end
+ 22   end
+
+and we getthis NoMethodError msg running rspec:
+# rspec error msg:
+Failures:
+
+  1) Game of Life Rules Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population. should kill a cell with one live neighbor
+     Failure/Error: game.tick!
+
+     NoMethodError:
+       undefined method `cells' for #<World:0x0000000219e298>
+     # ./game_of_life.rb:16:in `tick!'
+     # ./spec_game_of_life.rb:156:in `block (4 levels) in <top (required)>'
+
+...so we add the test for the method "cells" in the World object:
+# spec
+  7 describe 'Game of Life' do
+  8 
+  9   let!(:world) { World.new }
+ 10   let!(:cell) { Cell.new(1, 1) }
+ 11 
+ 12   context 'World' do
+ 13     subject { World.new }
+ 14 
+ 15     it 'should create a new world object' do
+ 16       expect(subject.is_a?(World)).to be_truthy # not sure which is best
+ 17     end
+ 18 
+ 19     it 'should respond to proper methods' do
+ 20       expect(subject).to respond_to(:rows)
+ 21       expect(subject).to respond_to(:cols)
+ 22       expect(subject).to respond_to(:cell_grid)
+ 23       expect(subject).to respond_to(:live_neighbors_around_cell)
+ 24       expect(subject).to respond_to(:cells)               # <-- THIS
+ 25     end
+
+... and now the rspec test fails with this "NoMethodError" msg:
+Failures:
+
+  1) Game of Life World should respond to proper methods
+     Failure/Error: expect(subject).to respond_to(:cells)
+       expected #<World:0x000000012e4950 @rows=3, @cols=3, @cell_grid=[[#<Cell:0x000000012e48d8 @alive=false, @x=0, @...ell:0x000000012e4748 @alive=false, @x=1, @y=2>, #<Cell:0x000000012e4720 @alive=false, @x=2, @y=2>]]> to respond to :cells
+     # ./spec_game_of_life.rb:24:in `block (3 levels) in <top (required)>'
+
+... and we add "cells" to the World class:
+# game
+ 26 class World
+ 27   attr_accessor :rows, :cols, :cell_grid, :cells  # <-- THIS
+ 28 
+ 29   def initialize(rows=3, cols=3)     # Why the (rows, cols) here then (col, row) ???
+ 30     @rows      = rows
+ 31     @cols      = cols
+ 32     @cells     = []                               # <-- THIS
+
+...and we still fail the test:
+# rspec error msg
+Failures:
+
+  1) Game of Life Rules Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population. should kill a cell with one live neighbor
+     Failure/Error: expect(world.cell_grid[1][0]).to be_dead
+       expected `#<Cell:0x00000001be2278 @alive=true, @x=0, @y=1>.dead?` to return true, got false
+     # ./spec_game_of_life.rb:157:in `block (4 levels) in <top (required)>'
+
+...and we need to write the means to kill the cell per Rule#1. We start by testing the 
+cells in the new cells array we just created:
+# rspec
+ 12   context 'World' do
+ 13     subject { World.new }
+...
+ 38     it 'should add all cells to cells array' do
+ 39       puts subject.cells.count                  # <-- THIS HELPED
+ 40       expect(subject.cells.count == 9).to be_truthy # nine cuz default is 3x3
+ 41     end
+
+
+HUGE ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ NOW I KNOW WHY THE DIRECTIONAL TESTS WERE FOOLING!!!
+
+Originally I thought this was an adequate test
+ 40       expect(subject.cells.count) == 9
+
+AND IT PASSED!!!! BUT THEN I ADDED THE puts LINE AND SAW THAT cells.count = 0
+THEN I TRIED
+ 40       expect((subject.cells.count) == 9).to be_truthy
+WHICH FAILED AND I REDUCED THE USELESS PARENTHESES...
+
+NOW TO REWORK THE DIRECTIONAL SYNTAX OF THE TESTS... :P
 
 
 

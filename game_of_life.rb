@@ -12,15 +12,24 @@ class Game
     end
   end
 
+  def tick!
+    world.cells.each do |cell|
+      # Rule 1
+      if cell.alive && world.live_neighbors_arouns_cell(cell).count < 2
+        cell.die
+      end
+    end
+  end
 end
 
 
 class World
-  attr_accessor :rows, :cols, :cell_grid
+  attr_accessor :rows, :cols, :cell_grid, :cells
 
   def initialize(rows=3, cols=3)     # Why the (rows, cols) here then (col, row) ???
     @rows      = rows
     @cols      = cols
+    @cells     = []
 
    # [[Cell.new, Cell.new, Cell.new], # [[[0][0], [1][0], [2][0]],
    #  [Cell.new, Cell.new, Cell.new]  #  [[0][1], [1][1], [2][1]],

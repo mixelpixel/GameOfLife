@@ -21,6 +21,7 @@ describe 'Game of Life' do
       expect(subject).to respond_to(:cols)
       expect(subject).to respond_to(:cell_grid)
       expect(subject).to respond_to(:live_neighbors_around_cell)
+      expect(subject).to respond_to(:cells)
     end
 
     it 'should create proper cell_grid upon initialization' do
@@ -32,6 +33,13 @@ describe 'Game of Life' do
           expect(col).to be_a(Cell)     # <-- be_a or be_an, Neat-O
         end
       end
+    end
+
+    it 'should add all cells to cells array' do
+      puts subject.cells.count
+#      expect(subject.cells.count == 9).to be_truthy # nine cuz default is 3x3
+#      expect(subject.cells.count) == 9
+      expect((subject.cells.count) == 9).to be_truthy
     end
 
     it 'should detect a neighbor to the NORTH' do
