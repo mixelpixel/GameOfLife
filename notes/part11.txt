@@ -76,12 +76,131 @@ So this passes with only the North check of "live_neighbors_around_cell" written
 
 ...but so do all the other rspec tests - why?
 
+WHY????????
+
+...moving on:
+# spec
+ 37     it 'should detect a neighbor to the NORTH' do
+ 38       expect(subject.cell_grid[cell.y - 1][cell.x]).to be_dead     # <-- temporary
+ 39       subject.cell_grid[cell.y - 1][cell.x].alive = true
+ 40       expect(subject.cell_grid[cell.y - 1][cell.x]).to be_alive    # <-- temporary
+ 41       expect(subject.live_neighbors_around_cell(cell).count) == 1
+ 42     end
+ 43 
+ 44     it 'should detect a neighbor to the SOUTH' do
+ 45 #      expect(subject.cell_grid[2][1]).to be_dead
+ 46       expect(subject.cell_grid[cell.y + 1][cell.x]).to be_dead
+ 47 #      subject.cell_grid[2][1].alive = true
+ 48       subject.cell_grid[cell.y + 1][cell.x].alive = true
+ 49 #      expect(subject.cell_grid[2][1]).to be_alive
+ 50       expect(subject.cell_grid[cell.y + 1][cell.x]).to be_alive
+ 51 #      expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
+ 52       expect(subject.live_neighbors_around_cell(cell).count) == 1
+ 53     end
+ 54 
+ 55     it 'should detect a neighbor to the WEST' do
+ 56       expect(subject.cell_grid[cell.y][cell.x - 1]).to be_dead
+ 57       subject.cell_grid[cell.y][cell.x - 1].alive = true
+ 58       expect(subject.cell_grid[cell.y][cell.x - 1]).to be_alive
+ 59       expect(subject.live_neighbors_around_cell(cell).count) == 1
+ 60     end
+ 61 
+ 62     it 'should detect a neighbor to the EAST' do
+ 63       expect(subject.cell_grid[cell.y][cell.x + 1]).to be_dead
+ 64       subject.cell_grid[cell.y][cell.x + 1].alive = true
+ 65       expect(subject.cell_grid[cell.y][cell.x + 1]).to be_alive
+ 66       expect(subject.live_neighbors_around_cell(cell).count) == 1
+ 67     end
+ 68 
+ 69     it 'should detect a neighbor to the NORTHWEST' do
+ 70       expect(subject.cell_grid[cell.y - 1][cell.x - 1]).to be_dead
+ 71       subject.cell_grid[cell.y - 1][cell.x - 1].alive = true
+ 72       expect(subject.cell_grid[cell.y - 1][cell.x - 1]).to be_alive
+ 73       expect(subject.live_neighbors_around_cell(cell).count) == 1
+ 74     end
+ 75 
+ 76     it 'should detect a neighbor to the NORTHEAST' do
+ 77       expect(subject.cell_grid[cell.y - 1][cell.x + 1]).to be_dead
+ 78       subject.cell_grid[cell.y - 1][cell.x + 1].alive = true
+ 79       expect(subject.cell_grid[cell.y - 1][cell.x + 1]).to be_alive
+ 80       expect(subject.live_neighbors_around_cell(cell).count) == 1
+ 81     end
+ 82 
+ 83     it 'should detect a neighbor to the SOUTHWEST' do
+ 84       expect(subject.cell_grid[cell.y + 1][cell.x - 1]).to be_dead
+ 85       subject.cell_grid[cell.y + 1][cell.x - 1].alive = true
+ 86       expect(subject.cell_grid[cell.y + 1][cell.x - 1]).to be_alive
+ 87       expect(subject.live_neighbors_around_cell(cell).count) == 1
+ 88     end
+ 89 
+ 90     it 'should detect a neighbor to the SOUTHEAST' do
+ 91       expect(subject.cell_grid[cell.y + 1][cell.x + 1]).to be_dead
+ 92       subject.cell_grid[cell.y + 1][cell.x + 1].alive = true
+ 93       expect(subject.cell_grid[cell.y + 1][cell.x + 1]).to be_alive
+ 94       expect(subject.live_neighbors_around_cell(cell).count) == 1
+ 95     end
 
 
+# game
+ 35   def live_neighbors_around_cell(cell)
+ 36     live_neighbors = []
+ 37 
+ 38     # NORTH
+ 39     if cell.y > 0  # NOTE: there are no neighbors North of the TOP row (cell.y < 0) 
+ 40       candidate = self.cell_grid[cell.y - 1][cell.x]
+ 41       live_neighbors << candidate if candidate.alive
+ 42       # the candidate is added to the live_neighbors list
+ 43     end
+ 44 
+ 45     # SOUTH
+ 46     if cell.y < (rows - 1)
+ 47       candidate = self.cell_grid[cell.y + 1][cell.x]
+ 48       live_neighbors << candidate if candidate.alive
+ 49     end
+ 50 
+ 51     # WEST
+ 52     if cell.x > 0
+ 53       candidate = self.cell_grid[cell.y][cell.x - 1]
+ 54       live_neighbors << candidate if candidate.alive
+ 55     end
+ 56 
+ 57     # EAST
+ 58     if cell.x < (cols - 1)
+ 59       candidate = self.cell_grid[cell.y][cell.x + 1]
+ 60       live_neighbors << candidate if candidate.alive
+ 61     end
+ 62 
+ 63     # NORTHWEST
+ 64     if cell.y > 0 && cell.x > 0
+ 65       candidate = self.cell_grid[cell.y - 1][cell.x - 1]
+ 66       live_neighbors << candidate if candidate.alive
+ 67     end
+ 68 
+ 69     # NORTHEAST
+ 70     if cell.y < 0 && cell.x < (cols - 1)
+ 71       candidate = self.cell_grid[cell.y - 1][cell.x + 1]
+ 72       live_neighbors << candidate if candidate.alive
+ 73     end
+ 74 
+ 75     # SOUTHWEST
+ 76     if cell.y < (rows - 1) && cell.x > 0
+ 77       candidate = self.cell_grid[cell.y + 1][cell.x - 1]
+ 78       live_neighbors << candidate if candidate.alive
+ 79     end
+ 80 
+ 81     # SOUTHEAST
+ 82     if cell.y < (rows - 1)  && cell.x < (cols - 1)
+ 83       candidate = self.cell_grid[cell.y + 1][cell.x + 1]
+ 84       live_neighbors << candidate if candidate.alive
+ 85     end
+ 86 
+ 87     live_neighbors # live neighbors is returned
+ 88 
+ 89   end
 
 
-
-
+To investigate later.
+Onward...
 
 
 

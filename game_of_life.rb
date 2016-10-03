@@ -35,15 +35,57 @@ class World
   def live_neighbors_around_cell(cell)
     live_neighbors = []
 
-    # it detects a neighbor to the North
-    # NOTE: there are no neighbors to the North of the TOP row (cell.y < 0)
-    if cell.y > 0 
+    # NORTH
+    if cell.y > 0  # NOTE: there are no neighbors North of the TOP row (cell.y < 0) 
       candidate = self.cell_grid[cell.y - 1][cell.x]
       live_neighbors << candidate if candidate.alive
       # the candidate is added to the live_neighbors list
     end
 
+    # SOUTH
+    if cell.y < (rows - 1)
+      candidate = self.cell_grid[cell.y + 1][cell.x]
+      live_neighbors << candidate if candidate.alive
+    end
+
+    # WEST
+    if cell.x > 0 
+      candidate = self.cell_grid[cell.y][cell.x - 1]
+      live_neighbors << candidate if candidate.alive
+    end
+
+    # EAST
+    if cell.x < (cols - 1)
+      candidate = self.cell_grid[cell.y][cell.x + 1]
+      live_neighbors << candidate if candidate.alive
+    end
+
+    # NORTHWEST
+    if cell.y > 0 && cell.x > 0 
+      candidate = self.cell_grid[cell.y - 1][cell.x - 1]
+      live_neighbors << candidate if candidate.alive
+    end
+
+    # NORTHEAST
+    if cell.y < 0 && cell.x < (cols - 1)
+      candidate = self.cell_grid[cell.y - 1][cell.x + 1]
+      live_neighbors << candidate if candidate.alive
+    end
+
+    # SOUTHWEST
+    if cell.y < (rows - 1) && cell.x > 0 
+      candidate = self.cell_grid[cell.y + 1][cell.x - 1]
+      live_neighbors << candidate if candidate.alive
+    end
+
+    # SOUTHEAST
+    if cell.y < (rows - 1)  && cell.x < (cols - 1)
+      candidate = self.cell_grid[cell.y + 1][cell.x + 1]
+      live_neighbors << candidate if candidate.alive
+    end
+
     live_neighbors # live neighbors is returned
+
   end
 
 end
