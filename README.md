@@ -34,3 +34,17 @@ https://github.com/ofcan/game-of-life-ruby
 http://stackoverflow.com/users/1028956/ofca  
 http://stackoverflow.com/questions/15422642/ruby-game-of-life-with-gosu-update-action-not-working  
 
+rspec:  
+http://rspec.info/  
+  
+RVM:  
+https://rvm.io/  
+https://rvm.io/rvm/install  
+  
+bundler:  
+http://bundler.io/  
+  
+Gosu:  
+https://www.libgosu.org/  
+https://github.com/gosu/gosu/wiki/Getting-Started-on-Linux  
+https://github.com/gosu/gosu/wiki/ruby-tutorial  
