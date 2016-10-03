@@ -154,6 +154,51 @@ killing the ones which meet the requirements.
  44 
  45   end
 
+# rspec
+161     context 'Rule 2: Any live cell with two or three live neighbours lives on to the next generation.' do
+162       it 'should keep alive a cell with TWO neighbors' do
+163         game = Game.new(world, [[0, 0], [0, 1], [0, 2]])
+164         expect(world.live_neighbors_around_cell(world.cell_grid[0][1]).count == 2).to be_truthy
+165         game.tick!
+166         expect(world.cell_grid[0][0]).to be_dead
+167         expect(world.cell_grid[0][1]).to be_alive
+168         expect(world.cell_grid[0][2]).to be_dead
+169       end
+170 
+171       it 'should keep alive a cell with THREE neighbors' do
+172         game = Game.new(world, [[0, 1], [1, 1], [2, 1], [2, 2]])
+173         expect(world.live_neighbors_around_cell(world.cell_grid[1][1]).count == 3).to be_truthy
+174         game.tick!
+175         expect(world.cell_grid[0][1]).to be_dead
+176         expect(world.cell_grid[1][1]).to be_alive
+177         expect(world.cell_grid[2][1]).to be_alive
+178         expect(world.cell_grid[2][2]).to be_alive
+179       end
+180     end
+
+182     context 'Rule 3: Any live cell with more than three live neighbours dies, as if by over-population.' do
+183       it 'should kill a cell with four or more neighbors' do
+184         game = Game.new(world, [[0, 1], [1, 1], [2, 1], [2, 2], [1, 2]])
+185         expect(world.live_neighbors_around_cell(world.cell_grid[1][1]).count == 4).to be_truthy
+186         game.tick!
+187         expect(world.cell_grid[0][1]).to be_alive
+188         expect(world.cell_grid[1][1]).to be_dead
+189         expect(world.cell_grid[2][1]).to be_alive
+190         expect(world.cell_grid[2][2]).to be_alive
+191         expect(world.cell_grid[1][2]).to be_dead
+192       end
+193     end
+194 
+195     context 'Rule 4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.' do
+196       it 'should make come to life a dead cell with ONLY three live neighbors' do
+197         game = Game.new(world, [[0, 1], [1, 1], [2, 1]])
+198         expect(world.live_neighbors_around_cell(world.cell_grid[1][0]).count == 3).to be_truthy
+199         game.tick!
+200         expect(world.cell_grid[1][0]).to be_truthy
+201         expect(world.cell_grid[1][2]).to be_truthy
+202       end
+203     end
+
 
 
 

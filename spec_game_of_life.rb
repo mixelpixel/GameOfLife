@@ -159,33 +159,48 @@ describe 'Game of Life' do
     end
 
     context 'Rule 2: Any live cell with two or three live neighbours lives on to the next generation.' do
-      it 'should keep alive a cell with two or three neighbors' do
-
-      # TWO neighbors
+      it 'should keep alive a cell with TWO neighbors' do
         game = Game.new(world, [[0, 0], [0, 1], [0, 2]])
-        puts world.live_neighbors_around_cell(cell).count
+        expect(world.live_neighbors_around_cell(world.cell_grid[0][1]).count == 2).to be_truthy
         game.tick!
-        puts
-        puts world.live_neighbors_around_cell(cell).count
+        expect(world.cell_grid[0][0]).to be_dead 
         expect(world.cell_grid[0][1]).to be_alive 
+        expect(world.cell_grid[0][2]).to be_dead 
+      end
 
-      # THREE neighbors
-        game = Game.new(world, [[0, 0], [0, 1], [0, 2], [1, 1]])
+      it 'should keep alive a cell with THREE neighbors' do
+        game = Game.new(world, [[0, 1], [1, 1], [2, 1], [2, 2]])
+        expect(world.live_neighbors_around_cell(world.cell_grid[1][1]).count == 3).to be_truthy
         game.tick!
-        expect(world.cell_grid[0][1]).to be_alive
-
+        expect(world.cell_grid[0][1]).to be_dead
+        expect(world.cell_grid[1][1]).to be_alive
+        expect(world.cell_grid[2][1]).to be_alive
+        expect(world.cell_grid[2][2]).to be_alive
       end
     end
  
-#    context 'Rule 3: Any live cell with more than three live neighbours dies, as if by over-population.' do
-#      it 'should kill a cell with four or more neighbors' do
-#      end
-#    end
-#
-#    context 'Rule 4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.' do
-#      it 'should make come to life a dead cell with ONLY three live neighbors' do
-#      end
-#    end
+    context 'Rule 3: Any live cell with more than three live neighbours dies, as if by over-population.' do
+      it 'should kill a cell with four or more neighbors' do
+        game = Game.new(world, [[0, 1], [1, 1], [2, 1], [2, 2], [1, 2]])
+        expect(world.live_neighbors_around_cell(world.cell_grid[1][1]).count == 4).to be_truthy
+        game.tick!
+        expect(world.cell_grid[0][1]).to be_alive
+        expect(world.cell_grid[1][1]).to be_dead
+        expect(world.cell_grid[2][1]).to be_alive
+        expect(world.cell_grid[2][2]).to be_alive
+        expect(world.cell_grid[1][2]).to be_dead
+      end
+    end
+
+    context 'Rule 4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.' do
+      it 'should make come to life a dead cell with ONLY three live neighbors' do
+        game = Game.new(world, [[0, 1], [1, 1], [2, 1]])
+        expect(world.live_neighbors_around_cell(world.cell_grid[1][0]).count == 3).to be_truthy
+        game.tick!
+        expect(world.cell_grid[1][0]).to be_truthy
+        expect(world.cell_grid[1][2]).to be_truthy
+      end
+    end
  
   end
 
