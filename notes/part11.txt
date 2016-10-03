@@ -403,6 +403,152 @@ true
 Finished in 0.00275 seconds (files took 0.12375 seconds to load)
 1 example, 0 failures
 
+Okay... after debugging an incorrect comparison operator in the game_of_life.rb World class
+"live_neighbors_around_cell" methods NORTHEAST check...
+
+I've removed all the flab in the rspec directional tests for living neighbors:
+
+# spec
+ 46     it 'should detect a neighbor to the NORTH' do
+ 47       subject.cell_grid[cell.y - 1][cell.x].alive = true
+ 48       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
+ 49     end
+ 50 
+ 51     it 'should detect a neighbor to the SOUTH' do
+ 52       subject.cell_grid[cell.y + 1][cell.x].alive = true
+ 53       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
+ 54     end
+ 55 
+ 56     it 'should detect a neighbor to the WEST' do
+ 57       subject.cell_grid[cell.y][cell.x - 1].alive = true
+ 58       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
+ 59     end
+ 60 
+ 61     it 'should detect a neighbor to the EAST' do
+ 62       subject.cell_grid[cell.y][cell.x + 1].alive = true
+ 63       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
+ 64     end
+ 65 
+ 66     it 'should detect a neighbor to the NORTHWEST' do
+ 67       subject.cell_grid[cell.y - 1][cell.x - 1].alive = true
+ 68       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
+ 69     end
+ 70 
+ 71     it 'should detect a neighbor to the NORTHEAST' do
+ 72       subject.cell_grid[cell.y - 1][cell.x + 1].alive = true
+ 73       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
+ 74     end
+ 75 
+ 76     it 'should detect a neighbor to the SOUTHWEST' do
+ 77       subject.cell_grid[cell.y + 1][cell.x - 1].alive = true
+ 78       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
+ 79     end
+ 80 
+ 81     it 'should detect a neighbor to the SOUTHEAST' do
+ 82       subject.cell_grid[cell.y + 1][cell.x + 1].alive = true
+ 83       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
+ 84     end
+
+...AND NOW TO find out if blocking out the World.live_neighbors... sections other
+than North make the tests fail... They do... and unblocking them one at a time
+they seem to be doing what they should... And this is confirmed by unblocking
+only one at a time and testing all eight directions
+
+Goodness...
+
+So back to it... around @5m30s
+
+We left off wrestling with the new rspec syntax:
+# rspec
+ 38     it 'should add all cells to cells array' do
+ 39       puts subject.cells.count                      # <-- 0
+ 40       puts (subject.cells.count == 9)               # <-- false
+ 41       expect(subject.cells.count == 9).to be_truthy # 9 == the 3x3 default grid
+ 42 #      expect(subject.cells.count) == 9
+ 43 #      expect((subject.cells.count) == 9).to be_truthy # 9 = 3x3 default
+ 44     end
+
+And now that we understand what is going on here, we reduce this to:
+# rspec
+ 38     it 'should add all cells to cells array' do
+ 39       expect(subject.cells.count == 9).to be_truthy #       9 == the 3x3 default grid
+ 40     end
+
+and running the test on rspec line 38, we get the following error msg:
+# rspec error msg
+patrick@ubuntu:~/Ruby/GameOfLife$ rspec spec_game_of_life.rb:38
+Run options: include {:locations=>{"./spec_game_of_life.rb"=>[38]}}
+F
+
+Failures:
+
+  1) Game of Life World should add all cells to cells array
+     Failure/Error: expect(subject.cells.count == 9).to be_truthy # 9 == the 3x3 default grid
+
+       expected: truthy value
+            got: false
+     # ./spec_game_of_life.rb:39:in `block (3 levels) in <top (required)>'
+
+...so to implement the default number of grid cells being added to the cells array:
+# game
+ 26 class World
+...
+ 37     @cell_grid = Array.new(rows) do |row|
+ 38                    Array.new(cols) do |col|
+ 39                      cell = Cell.new(col, row)      # <--
+ 40                      cells << cell                  # <--
+ 41                      cell                           # <-- why are we returning cell and not cells?
+ 42                    end
+ 43                  end
+ 44   end
+
+
+
+...and now we only get the following error message
+# rspec error msg:
+patrick@ubuntu:~/Ruby/GameOfLife$ rspec spec_game_of_life.rb
+...................F
+
+Failures:
+
+  1) Game of Life Rules Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population. should kill a cell with one live neighbor
+     Failure/Error: game.tick!
+
+     NoMethodError:
+       undefined method `die' for #<Cell:0x00000001910860 @alive=true, @x=0, @y=1>
+     # ./game_of_life.rb:19:in `block in tick!'
+     # ./game_of_life.rb:16:in `each'
+     # ./game_of_life.rb:16:in `tick!'
+     # ./spec_game_of_life.rb:138:in `block (4 levels) in <top (required)>'
+
+Finished in 0.00872 seconds (files took 0.12193 seconds to load)
+20 examples, 1 failure
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

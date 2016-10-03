@@ -15,7 +15,7 @@ class Game
   def tick!
     world.cells.each do |cell|
       # Rule 1
-      if cell.alive && world.live_neighbors_arouns_cell(cell).count < 2
+      if cell.alive && world.live_neighbors_around_cell(cell).count < 2
         cell.die
       end
     end
@@ -36,7 +36,9 @@ class World
    #  [Cell.new, Cell.new, Cell.new]] #  [[0][2], [1][2], [2][2]]]    (col, row) ???
     @cell_grid = Array.new(rows) do |row|
                    Array.new(cols) do |col|
-                     Cell.new(col, row)
+                     cell = Cell.new(col, row)
+                     cells << cell
+                     cell     # why are we returning cell and not cells?
                    end
                  end
   end
@@ -50,25 +52,25 @@ class World
       live_neighbors << candidate if candidate.alive
       # the candidate is added to the live_neighbors list
     end
-
+ 
     # SOUTH
     if cell.y < (rows - 1)
       candidate = self.cell_grid[cell.y + 1][cell.x]
       live_neighbors << candidate if candidate.alive
     end
-
+ 
     # WEST
     if cell.x > 0 
       candidate = self.cell_grid[cell.y][cell.x - 1]
       live_neighbors << candidate if candidate.alive
     end
-
+ 
     # EAST
     if cell.x < (cols - 1)
       candidate = self.cell_grid[cell.y][cell.x + 1]
       live_neighbors << candidate if candidate.alive
     end
-
+ 
     # NORTHWEST
     if cell.y > 0 && cell.x > 0 
       candidate = self.cell_grid[cell.y - 1][cell.x - 1]

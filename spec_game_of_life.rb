@@ -35,95 +35,47 @@ describe 'Game of Life' do
       end
     end
 
-#     it 'should add all cells to cells array' do
-#       puts subject.cells.count                      # <-- 0
-#       puts (subject.cells.count == 9)               # <-- false
-#       expect(subject.cells.count == 9).to be_truthy # 9 == the 3x3 default grid
-# #      expect(subject.cells.count) == 9
-# #      expect((subject.cells.count) == 9).to be_truthy # 9 = 3x3 default
-#     end
+    it 'should add all cells to cells array' do
+      expect(subject.cells.count == 9).to be_truthy        # 9 == the 3x3 default grid
+    end
 
     it 'should detect a neighbor to the NORTH' do
-      puts subject.live_neighbors_around_cell(cell).count          # <-- 0
-      puts subject.live_neighbors_around_cell(cell).count == 1     # <-- false
-      expect(subject.cell_grid[cell.y - 1][cell.x]).to be_dead     # <-- temporary
       subject.cell_grid[cell.y - 1][cell.x].alive = true
-      expect(subject.cell_grid[cell.y - 1][cell.x]).to be_alive    # <-- temporary
-      puts subject.live_neighbors_around_cell(cell).count          # <-- 1
-      puts subject.live_neighbors_around_cell(cell).count == 1     # <-- true
-#       expect(subject.live_neighbors_around_cell(cell).count) == 1
       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
     end
 
     it 'should detect a neighbor to the SOUTH' do
-      puts subject.live_neighbors_around_cell(cell).count          # <-- 0
-      puts subject.live_neighbors_around_cell(cell).count == 1     # <-- false
-#      expect(subject.cell_grid[2][1]).to be_dead
-      expect(subject.cell_grid[cell.y + 1][cell.x]).to be_dead
-#      subject.cell_grid[2][1].alive = true
       subject.cell_grid[cell.y + 1][cell.x].alive = true
-#      expect(subject.cell_grid[2][1]).to be_alive
-      expect(subject.cell_grid[cell.y + 1][cell.x]).to be_alive
-#      expect(subject.live_neighbors_around_cell(subject.cell_grid[1][1]).count) == 1
-      expect(subject.live_neighbors_around_cell(cell).count) == 1
+      expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
     end
 
     it 'should detect a neighbor to the WEST' do
-      puts subject.live_neighbors_around_cell(cell).count          # <-- 0
-      puts subject.live_neighbors_around_cell(cell).count == 1     # <-- false
-      expect(subject.cell_grid[cell.y][cell.x - 1]).to be_dead
       subject.cell_grid[cell.y][cell.x - 1].alive = true
-      expect(subject.cell_grid[cell.y][cell.x - 1]).to be_alive
-#      expect(subject.live_neighbors_around_cell(cell).count) == 1
       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
     end
 
     it 'should detect a neighbor to the EAST' do
-      puts subject.live_neighbors_around_cell(cell).count          # <-- 0
-      puts subject.live_neighbors_around_cell(cell).count == 1     # <-- false
-      expect(subject.cell_grid[cell.y][cell.x + 1]).to be_dead
       subject.cell_grid[cell.y][cell.x + 1].alive = true
-      expect(subject.cell_grid[cell.y][cell.x + 1]).to be_alive
-#      expect(subject.live_neighbors_around_cell(cell).count) == 1
       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
     end
 
     it 'should detect a neighbor to the NORTHWEST' do
-      puts subject.live_neighbors_around_cell(cell).count          # <-- 0
-      puts subject.live_neighbors_around_cell(cell).count == 1     # <-- false
-      expect(subject.cell_grid[cell.y - 1][cell.x - 1]).to be_dead
       subject.cell_grid[cell.y - 1][cell.x - 1].alive = true
-      expect(subject.cell_grid[cell.y - 1][cell.x - 1]).to be_alive
-#      expect(subject.live_neighbors_around_cell(cell).count) == 1
       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
     end
 
     it 'should detect a neighbor to the NORTHEAST' do
-      puts subject.live_neighbors_around_cell(cell).count          # <-- 0
-      puts subject.live_neighbors_around_cell(cell).count == 1     # <-- false
-      expect(subject.cell_grid[cell.y - 1][cell.x + 1]).to be_dead
       subject.cell_grid[cell.y - 1][cell.x + 1].alive = true
-      puts subject.cell_grid[cell.y - 1][cell.x + 1].alive
-      expect(subject.cell_grid[cell.y - 1][cell.x + 1]).to be_alive
-#      expect(subject.live_neighbors_around_cell(cell).count) == 1
-      puts subject.live_neighbors_around_cell(cell).count          # <-- 0
-      puts subject.live_neighbors_around_cell(cell).count == 1     # <-- true
       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
     end
 
     it 'should detect a neighbor to the SOUTHWEST' do
-      expect(subject.cell_grid[cell.y + 1][cell.x - 1]).to be_dead
       subject.cell_grid[cell.y + 1][cell.x - 1].alive = true
-      expect(subject.cell_grid[cell.y + 1][cell.x - 1]).to be_alive
-#      expect(subject.live_neighbors_around_cell(cell).count) == 1
       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
     end
 
     it 'should detect a neighbor to the SOUTHEAST' do
-      expect(subject.cell_grid[cell.y + 1][cell.x + 1]).to be_dead
       subject.cell_grid[cell.y + 1][cell.x + 1].alive = true
-      expect(subject.cell_grid[cell.y + 1][cell.x + 1]).to be_alive
-#      expect(subject.live_neighbors_around_cell(cell).count) == 1
       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
     end
   end
@@ -176,19 +128,19 @@ describe 'Game of Life' do
   end
 
 
-#   context 'Rules' do
-# 
-#   let!(:game) { Game.new }
-# 
-#     context 'Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.' do
-#       it 'should kill a cell with one live neighbor' do
-#         game = Game.new(world, [[1, 0], [2, 0]])
-#         game.tick!
-#         expect(world.cell_grid[1][0]).to be_dead
-#         expect(world.cell_grid[2][0]).to be_dead
-#       end
-#     end
-#   end
+  context 'Rules' do
+
+  let!(:game) { Game.new }
+
+    context 'Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.' do
+      it 'should kill a cell with one live neighbor' do
+        game = Game.new(world, [[1, 0], [2, 0]])
+        game.tick!
+        expect(world.cell_grid[1][0]).to be_dead
+        expect(world.cell_grid[2][0]).to be_dead
+      end
+    end
+  end
 
 end
 
