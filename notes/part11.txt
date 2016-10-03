@@ -177,7 +177,7 @@ WHY????????
  67     end
  68 
  69     # NORTHEAST
- 70     if cell.y < 0 && cell.x < (cols - 1)
+ 70     if cell.y > 0 && cell.x < (cols - 1)
  71       candidate = self.cell_grid[cell.y - 1][cell.x + 1]
  72       live_neighbors << candidate if candidate.alive
  73     end
@@ -343,9 +343,65 @@ Originally I thought this was an adequate test
 AND IT PASSED!!!! BUT THEN I ADDED THE puts LINE AND SAW THAT cells.count = 0
 THEN I TRIED
  40       expect((subject.cells.count) == 9).to be_truthy
-WHICH FAILED AND I REDUCED THE USELESS PARENTHESES...
+WHICH FAILED
+...AND I REDUCED THE USELESS PARENTHESES...
 
-NOW TO REWORK THE DIRECTIONAL SYNTAX OF THE TESTS... :P
+with this understanding of the testing syntax:
+# rspec
+ 38     it 'should add all cells to cells array' do
+ 39       puts subject.cells.count                      # <-- 0
+ 40       puts (subject.cells.count == 9)               # <-- false
+ 41       expect(subject.cells.count == 9).to be_truthy # 9 == the 3x3 default grid
+ 42 #      expect(subject.cells.count) == 9
+ 43 #      expect((subject.cells.count) == 9).to be_truthy # 9 = 3x3 default
+ 44     end
+
+...and the error msg
+# rspec error msg:
+patrick@ubuntu:~/Ruby/GameOfLife$ rspec spec_game_of_life.rb:38
+Run options: include {:locations=>{"./spec_game_of_life.rb"=>[38]}}
+0
+false
+F
+
+Failures:
+
+  1) Game of Life World should add all cells to cells array
+     Failure/Error: expect(subject.cells.count == 9).to be_truthy # 9 == the 3x3 default grid
+
+       expected: truthy value
+            got: false
+     # ./spec_game_of_life.rb:41:in `block (3 levels) in <top (required)>'
+
+
+
+...NOW TO REWORK THE DIRECTIONAL SYNTAX OF THE TESTS... :P
+
+TESTING NORTH:
+# rspec
+ 45     it 'should detect a neighbor to the NORTH' do
+ 46       puts subject.live_neighbors_around_cell(cell).count          # <-- 0
+ 47       puts subject.live_neighbors_around_cell(cell).count == 1     # <-- false
+ 48       expect(subject.cell_grid[cell.y - 1][cell.x]).to be_dead     # <-- temporary
+ 49       subject.cell_grid[cell.y - 1][cell.x].alive = true
+ 50       expect(subject.cell_grid[cell.y - 1][cell.x]).to be_alive    # <-- temporary
+ 51       puts subject.live_neighbors_around_cell(cell).count          # <-- 1
+ 52       puts subject.live_neighbors_around_cell(cell).count == 1     # <-- true
+ 53 #       expect(subject.live_neighbors_around_cell(cell).count) == 1
+ 54       expect(subject.live_neighbors_around_cell(cell).count == 1).to be_truthy
+ 55     end
+
+# rspec msg
+patrick@ubuntu:~/Ruby/GameOfLife$ rspec spec_game_of_life.rb:45
+Run options: include {:locations=>{"./spec_game_of_life.rb"=>[45]}}
+0
+false
+1
+true
+.
+
+Finished in 0.00275 seconds (files took 0.12375 seconds to load)
+1 example, 0 failures
 
 
 
