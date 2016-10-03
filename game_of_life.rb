@@ -16,7 +16,7 @@ class Game
     world.cells.each do |cell|
       # Rule 1
       if cell.alive && world.live_neighbors_around_cell(cell).count < 2
-        cell.die
+        cell.die!
       end
     end
   end
@@ -114,6 +114,10 @@ class Cell
   def alive?; alive; end
 
   def dead?; not alive; end
+
+  def die!
+    @alive = false
+  end
 
 end
 

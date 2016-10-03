@@ -93,6 +93,7 @@ describe 'Game of Life' do
       expect(subject).to respond_to(:x)
       expect(subject).to respond_to(:y)
       expect(subject).to respond_to(:alive?)
+      expect(subject).to respond_to(:die!)
     end
 
     it 'should initialize properly' do

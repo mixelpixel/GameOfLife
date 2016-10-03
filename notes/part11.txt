@@ -524,11 +524,48 @@ Failures:
 Finished in 0.00872 seconds (files took 0.12193 seconds to load)
 20 examples, 1 failure
 
+... so we need to write the "die" method. First the test in the Cells context:
+# rspec
+ 84   context 'Cell' do
+...
+ 91     it 'should respond to proper methods' do
+ 92       expect(subject).to respond_to(:alive)
+ 93       expect(subject).to respond_to(:x)
+ 94       expect(subject).to respond_to(:y)
+ 95       expect(subject).to respond_to(:alive?)
+ 96       expect(subject).to respond_to(:die!)               # <-- THIS
+ 97     end
 
+...and then the method basics:
+# game
+105 class Cell
+...
+118   def die!; end
+119 
+120 end
 
+NOTE: whoopsie - in the tick! method I was calling die not die!, so I updated that in class Game:
+# game
+ 15   def tick!
+ 16     world.cells.each do |cell|
+ 17       # Rule 1
+ 18       if cell.alive && world.live_neighbors_around_cell(cell).count < 2
+ 19         cell.die!
+ 20       end
+ 21     end
+ 22   end
 
+...back to tick, what does it do? per the error message it need to make the cell die:
+# game
+105 class Cell
+...
+118   def die!
+119     @alive = false
+120   end
 
+...and we run the test and get no failures! SO WE HAVE IMPLEMENTED RULE #1!!!!!!!
 
+TASK: implement the remaining three rules :D
 
 
 
