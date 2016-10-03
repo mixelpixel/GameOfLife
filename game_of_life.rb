@@ -13,16 +13,35 @@ class Game
   end
 
   def tick!
+    next_round_live_cells = []
+    next_round_dead_cells = []
+
     world.cells.each do |cell|
       # Rule 1
       if cell.alive && world.live_neighbors_around_cell(cell).count < 2
-        cell.die!
+        next_round_dead_cells << cell
       end
       # Rule 2
       if cell.alive && ([2, 3].include? world.live_neighbors_around_cell(cell).count)
-        cell.revive!
+        next_round_live_cells << cell
+      end
+      # Rule 3
+      if cell.alive? && world.live_neighbors_around_cell(cell).count > 3
+        next_round_dead_cells << cell
+      end
+      # Rule 4
+      if cell.dead? && world.live_neighbors_around_cell(cell).count == 3
+        next_round_live_cells << cell
       end
     end
+
+    next_round_live_cells.each do |cell|
+      cell.revive!
+    end
+    next_round_dead_cells.each do |cell|
+      cell.die!
+    end
+
   end
 end
 

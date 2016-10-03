@@ -91,9 +91,68 @@ Not sure if when I start this [0, 1] is alive to start with...
 done to get the first rule set up correctly so that it doesn't kill cells w/2 neighbors
 (and kills cells with 0 neighbors)...
 
+# rspec
+137     context 'Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.' do
+138 
+139       it 'should kill a live cell with NO live neighbors' do
+140         game.world.cell_grid[1][1].alive = true
+141         expect(world.cell_grid[1][1]).to be_alive
+142         game.tick!
+143         expect(game.world.cell_grid[1][1]).to be_dead
+144       end
+145 
+146       it 'should kill a cell with ONE live neighbor' do
+147         game = Game.new(world, [[1, 0], [2, 0]])
+148         game.tick!
+149         expect(world.cell_grid[1][0]).to be_dead
+150         expect(world.cell_grid[2][0]).to be_dead
+151       end
+152 
+153       it 'DOES NOT kill live cells with TWO live neighbors' do
+154         game = Game.new(world, [[0, 1], [1, 1], [2, 1]])
+155         game.tick!
+156         expect(world.cell_grid[1][1]).to be_alive
+157       end
+158 
+159     end
 
+rspec spec_game_of_life.rb:153 FAILS cuz we are killing cells as we check them,
+instead of checking all of them and noting which ones meet the state change
+requirements by putting their cell into an array and THEN
+killing the ones which meet the requirements.
 
-
+# game
+ 15   def tick!
+ 16     next_round_live_cells = []
+ 17     next_round_dead_cells = []
+ 18     
+ 19     world.cells.each do |cell|
+ 20       # Rule 1
+ 21       if cell.alive && world.live_neighbors_around_cell(cell).count < 2
+ 22         next_round_dead_cells << cell
+ 23       end
+ 24       # Rule 2
+ 25       if cell.alive && ([2, 3].include? world.live_neighbors_around_cell(cell).count)
+ 26         next_round_live_cells << cell
+ 27       end
+ 28       # Rule 3
+ 29       if cell.alive? && world.live_neighbors_around_cell(cell).count > 3
+ 30         next_round_dead_cells << cell
+ 31       end
+ 32       # Rule 4
+ 33       if cell.dead? && world.live_neighbors_around_cell(cell).count == 3
+ 34         next_round_live_cells << cell
+ 35       end
+ 36     end
+ 37   
+ 38     next_round_live_cells.each do |cell|
+ 39       cell.revive!
+ 40     end
+ 41     next_round_dead_cells.each do |cell|
+ 42       cell.die!
+ 43     end
+ 44 
+ 45   end
 
 
 

@@ -135,12 +135,27 @@ describe 'Game of Life' do
   let!(:game) { Game.new }
 
     context 'Rule 1: Any live cell with fewer than two live neighbours dies, as if caused by under-population.' do
-      it 'should kill a cell with one live neighbor' do
+
+      it 'should kill a live cell with NO live neighbors' do
+        game.world.cell_grid[1][1].alive = true
+        expect(game.world.cell_grid[1][1]).to be_alive
+        game.tick!
+        expect(game.world.cell_grid[1][1]).to be_dead
+      end
+
+      it 'should kill a cell with ONE live neighbor' do
         game = Game.new(world, [[1, 0], [2, 0]])
         game.tick!
         expect(world.cell_grid[1][0]).to be_dead
         expect(world.cell_grid[2][0]).to be_dead
       end
+
+      it 'DOES NOT kill live cells with TWO live neighbors' do
+        game = Game.new(world, [[0, 1], [1, 1], [2, 1]])
+        game.tick!
+        expect(world.cell_grid[1][1]).to be_alive
+      end
+
     end
 
     context 'Rule 2: Any live cell with two or three live neighbours lives on to the next generation.' do
