@@ -94,7 +94,8 @@ describe 'Game of Life' do
       expect(subject).to respond_to(:y)
       expect(subject).to respond_to(:alive?)
       expect(subject).to respond_to(:die!)
-    end
+      expect(subject).to respond_to(:revive!)
+   end
 
     it 'should initialize properly' do
       expect(subject.alive).to be == false
@@ -141,6 +142,36 @@ describe 'Game of Life' do
         expect(world.cell_grid[2][0]).to be_dead
       end
     end
+
+    context 'Rule 2: Any live cell with two or three live neighbours lives on to the next generation.' do
+      it 'should keep alive a cell with two or three neighbors' do
+
+      # TWO neighbors
+        game = Game.new(world, [[0, 0], [0, 1], [0, 2]])
+        puts world.live_neighbors_around_cell(cell).count
+        game.tick!
+        puts
+        puts world.live_neighbors_around_cell(cell).count
+        expect(world.cell_grid[0][1]).to be_alive 
+
+      # THREE neighbors
+        game = Game.new(world, [[0, 0], [0, 1], [0, 2], [1, 1]])
+        game.tick!
+        expect(world.cell_grid[0][1]).to be_alive
+
+      end
+    end
+ 
+#    context 'Rule 3: Any live cell with more than three live neighbours dies, as if by over-population.' do
+#      it 'should kill a cell with four or more neighbors' do
+#      end
+#    end
+#
+#    context 'Rule 4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.' do
+#      it 'should make come to life a dead cell with ONLY three live neighbors' do
+#      end
+#    end
+ 
   end
 
 end

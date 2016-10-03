@@ -18,6 +18,10 @@ class Game
       if cell.alive && world.live_neighbors_around_cell(cell).count < 2
         cell.die!
       end
+      # Rule 2
+      if cell.alive && ([2, 3].include? world.live_neighbors_around_cell(cell).count)
+        cell.revive!
+      end
     end
   end
 end
@@ -117,6 +121,10 @@ class Cell
 
   def die!
     @alive = false
+  end
+
+  def revive!
+    @alive = true
   end
 
 end
