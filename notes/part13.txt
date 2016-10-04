@@ -1,4 +1,4 @@
-1234567890---------2---------3---------4---------5---------6---------7-2-------8---------9---------1
+i1234567890---------2---------3---------4---------5---------6---------7-2-------8---------9---------1
 SVENs GITHUB: https://github.com/ofcan/game-of-life-ruby
 MY PLAYLIST:  https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
 MY GITHUB:    https://github.com/mixelpixel/GameOfLife
@@ -16,4 +16,43 @@ but I went here:
 
 https://github.com/gosu/gosu/wiki/Getting-Started-on-Linux 
 
-and I think I have the right version installed now.
+and after entering this in the command line:
+
+1) sudo apt-get install build-essential libsdl2-dev libsdl2-ttf-dev libpango1.0-dev libgl1-mesa-dev libfreeimage-dev libopenal-dev libsndfile-dev
+
+2) gem install gosu
+
+3) bundle
+
+I think I have the right version installed now.
+
+per: https://github.com/gosu/gosu/wiki/ruby-tutorial
+
+# gosu_gol
+  1 # Gosu file
+  2 
+  3 require 'gosu'
+  4 require_relative 'game_of_life.rb'
+  5 
+  6 class GameOfLifeWindow < Gosu::Window       # <-- Inherits from Gosu super class Window
+  7 
+  8   def initialize
+  9     super 640, 480, false                   # <-- init width, height, fullscreen = false
+ 10     self.caption = "Conway's Game Of Life"
+ 11   end
+ 12 
+ 13   def update
+ 14   end
+ 15 
+ 16   def draw
+ 17   end
+ 18 
+ 19 end
+ 20 
+ 21 
+ 22 GameOfLifeWindow.new.show
+ 23 #window = GameOfLifeWindow.new.show
+ 24 #window.show
+
+
+The basic window appears w/the title, YaY!
