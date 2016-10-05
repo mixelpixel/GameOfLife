@@ -5,7 +5,7 @@ require_relative 'game_of_life.rb'
 
 class GameOfLifeWindow < Gosu::Window
 
-  def initialize(width=800, height=400)
+  def initialize(width=800, height=800)
     @width     = width
     @height    = height
     super width, height, false                     # <-- width, height, fullscreen = false
@@ -31,6 +31,7 @@ class GameOfLifeWindow < Gosu::Window
 
   def update                                  # <-- updates game 60 times per second
                                               # <-- contains (or references) game logic
+    @game.tick!
   end
 
   def draw                                    # <-- says to gosu gaming library how to flesh
@@ -43,13 +44,13 @@ class GameOfLifeWindow < Gosu::Window
     @game.world.cells.each do |cell|
       if cell.alive?
         draw_quad(cell.x * @col_width, cell.y * @row_height, @alive_color,
-                  (cell.x * @col_width) + @col_width, cell.y * @row_height, @alive_color,
-                  (cell.x * @col_width) + @col_width, (cell.y * @row_height) + @row_height, @alive_color,
+                 (cell.x * @col_width) + @col_width, cell.y * @row_height, @alive_color,
+                 (cell.x * @col_width) + @col_width, (cell.y * @row_height) + @row_height, @alive_color,
                   cell.x * @col_width, (cell.y * @row_height) + @row_height, @alive_color)
       else
         draw_quad(cell.x * @col_width, cell.y * @row_height, @dead_color,
-                  (cell.x * @col_width) + @col_width, cell.y * @row_height, @dead_color,
-                  (cell.x * @col_width) + @col_width, (cell.y * @row_height) + @row_height, @dead_color,
+                 (cell.x * @col_width) + @col_width, cell.y * @row_height, @dead_color,
+                 (cell.x * @col_width) + @col_width, (cell.y * @row_height) + @row_height, @dead_color,
                   cell.x * @col_width, (cell.y * @row_height) + @row_height, @dead_color)
       end
     end
@@ -61,7 +62,7 @@ end
 
 
 #GameOfLifeWindow.new.show
-window = GameOfLifeWindow.new.show
+window = GameOfLifeWindow.new
 window.show
 
 

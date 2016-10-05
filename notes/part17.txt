@@ -27,5 +27,13 @@ https://youtu.be/wIbL4klYtQk?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
  53                   cell.x * @col_width, (cell.y * @row_height) + @row_height, @dead_color)
  54       end
 
+...And to get it rolling:
 
+ 32   def update                                  # <-- updates game 60 times per second
+ 33                                               # <-- contains (or references) game logic
+ 34     @game.tick!
+ 35   end
+
+
+NOW: WHY ARE THE ROW/COLS HEIGHT/WIDTH FUCKED OFF????????????
 
