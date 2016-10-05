@@ -1,0 +1,66 @@
+i1234567890---------2---------3---------4---------5---------6---------7-2-------8---------9---------1
+SVENs GITHUB: https://github.com/ofcan/game-of-life-ruby
+MY PLAYLIST:  https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+MY GITHUB:    https://github.com/mixelpixel/GameOfLife
+**A Ruby Tutorial: Implementing John H. Conway's "Game of Life"**
+PART 15 - Connecting Gosu
+https://youtu.be/mRI7uk-WhNk?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+
+
+
+
+
+
+  1 # Gosu file
+  2 
+  3 require 'gosu'
+  4 require_relative 'game_of_life.rb'
+  5 
+  6 class GameOfLifeWindow < Gosu::Window
+  7 
+  8   def initialize(width=800, height=400)
+  9     @width     = width
+ 10     @height    = height
+ 11     super width, height, false                     # <-- width, height, fullscreen = false
+ 12     self.caption = "Conway's Game Of Life"
+ 13 
+ 14     # Color
+ 15     @background_color = Gosu::Color.new(0xffdedede)
+ 16 
+ 17     # Game itself
+ 18     @cols = width / 10
+ 19     @rows = height / 10
+ 20     @world = World.new(@cols, @rows)
+ 21     @game = Game.new(@world)
+ 22 #    @game.world.randomly_populate
+ 23 
+ 24   end
+ 25 
+ 26   def update                                  # <-- updates game 60 times per second
+ 27                                               # <-- contains (or references) game logic
+ 28   end
+ 29 
+ 30   def draw                                    # <-- says to gosu gaming library how to flesh
+ 31                                               # <-- out bare game logic bones (colors, background, visual representations etc...)
+ 32     draw_quad(0, 0, @background_color,
+ 33               width, 0, @background_color,
+ 34               width, height, @background_color,
+ 35               0, height, @background_color)
+ 36   end
+ 37 
+ 38   def needs_cursor?; true; end
+ 39 
+ 40 end
+ 41 
+ 42 
+ 43 #GameOfLifeWindow.new.show
+ 44 window = GameOfLifeWindow.new.show
+ 45 window.show
+
+
+Now to build randomly_populate with rspec TDD
+
+
+
+
+

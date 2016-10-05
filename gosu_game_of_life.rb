@@ -14,6 +14,13 @@ class GameOfLifeWindow < Gosu::Window
     # Color
     @background_color = Gosu::Color.new(0xffdedede)
 
+    # Game itself
+    @cols = width / 10
+    @rows = height / 10
+    @world = World.new(@cols, @rows)
+    @game = Game.new(@world)
+#    @game.world.randomly_populate
+
   end
 
   def update                                  # <-- updates game 60 times per second
