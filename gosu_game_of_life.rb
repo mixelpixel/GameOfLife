@@ -19,7 +19,7 @@ class GameOfLifeWindow < Gosu::Window
     @rows = height / 10
     @world = World.new(@cols, @rows)
     @game = Game.new(@world)
-#    @game.world.randomly_populate
+    @game.world.randomly_populate
 
   end
 

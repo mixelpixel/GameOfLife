@@ -59,6 +59,132 @@ https://youtu.be/mRI7uk-WhNk?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
 
 
 Now to build randomly_populate with rspec TDD
+# rspec
+  7 describe 'Game of Life' do
+  8 
+  9   let!(:world) { World.new }
+ 10   let!(:cell) { Cell.new(1, 1) }
+ 11 
+ 12   context 'World' do
+ 13     subject { World.new }
+ 14 
+ 15     it 'should create a new world object' do
+ 16       expect(subject.is_a?(World)).to be_truthy # not sure which is best
+ 17     end
+ 18 
+ 19     it 'should respond to proper methods' do
+ 20       expect(subject).to respond_to(:rows)
+ 21       expect(subject).to respond_to(:cols)
+ 22       expect(subject).to respond_to(:cell_grid)
+ 23       expect(subject).to respond_to(:live_neighbors_around_cell)
+ 24       expect(subject).to respond_to(:cells)
+ 25       expect(subject).to respond_to(:randomly_populate)
+ 26     end
+
+... testing this fails, so we build the randomly_populate method:
+# game
+ 49 class World
+...
+125   def randomly_populate
+126   end
+
+...this basic syntax passes the basic rspec requirement. So let's test what it 'should' do"
+# rspec
+ 12   context 'World' do
+ 13     subject { World.new }
+
+...
+ 83     it 'should randomly populate the world' do
+ 84       subject.cells.each do |cell|
+ 85         expect(cell).to be_dead
+ 86       end
+
+... the test passes, let's add the randomly_populate method:
+#rspec
+ 87       subject.randomly_populate
+
+...and test the before/after (it will fail as we haven't made the rans_pop logic yet)
+# rspec
+ 83     it 'should randomly populate the world' do
+ 84       subject.cells.each do |cell|
+ 85         expect(cell).to be_dead
+ 86       end
+ 87     
+ 88       subject.randomly_populate
+ 89   
+ 90       subject.cells.each do |cell|
+ 91         expect(cell).to_not be_dead
+ 92       end
+ 93     end
+
+...BUT, this is not quite right, let's try something better - it will require evaluating all 
+cells and making an array of live and an array of dead cells:
+# rspec
+ 12   context 'World' do
+ 13     subject { World.new }
+...
+ 26       expect(subject).to respond_to(:live_cells)
+ 27     end
+...
+ 83     it 'should randomly populate the world' do
+ 84       expect(subject.live_cells).to be_empty
+ 85       subject.randomly_populate
+ 86 
+ 87     end
+
+# game
+ 49 class World
+...
+125   def live_cells
+126   end
+127 
+128   def randomly_populate
+129   end
+130 
+131 end
+
+...this fails rspec test cuz no empty? and no logic... so instead:
+# rspec
+ 85       expect(subject.live_cells.count == 0).to be_truthy
+
+...and
+
+# game
+125   def live_cells
+126     cells.select { |cell| cell.alive }  # <-- returns array w/selection of alive cells
+127   end
+
+... now the test passes, so we continue with:
+# rspec
+ 84     it 'should randomly populate the world' do
+ 85       expect(subject.live_cells.count == 0).to be_truthy
+ 86       subject.randomly_populate
+ 87       expect(subject.live_cells.count > 0).to be_truthy
+ 88     end
+
+...and the test fails, so we need to make randomly_populate logic:
+# game
+129   def randomly_populate
+130     cells.each do |cell|
+131       cell.alive = [true, false].sample
+132     end
+133   end
+
+...and we pass all tests! So back to the gosu file, we uncomment the rand_pop line:
+  6 class GameOfLifeWindow < Gosu::Window
+  7 
+  8   def initialize(width=800, height=400)
+...
+ 22     @game.world.randomly_populate
+ 23 
+ 24   end
+
+...and ruby gosu... loads okay!
+
+
+
+
+
 
 
 
