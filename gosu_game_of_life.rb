@@ -5,10 +5,11 @@ require_relative 'game_of_life.rb'
 
 class GameOfLifeWindow < Gosu::Window
 
-  def initialize(width=800, height=800)
-    @width     = width
+  def initialize(height=800, width=400)
+
     @height    = height
-    super width, height, false                     # <-- width, height, fullscreen = false
+    @width     = width
+    super height, width, false                     # <-- ?????width, height, fullscreen = false
     self.caption = "Conway's Game Of Life"
 
     # Color
@@ -29,18 +30,18 @@ class GameOfLifeWindow < Gosu::Window
 
   end
 
-  def update                                  # <-- updates game 60 times per second
-                                              # <-- contains (or references) game logic
-    @game.tick!
+  def update                   # <-- updates game 60 times per second
+    @game.tick!                # <-- contains (or references) game logic
   end
 
-  def draw                                    # <-- says to gosu gaming library how to flesh
-                                              # <-- out bare game logic bones (colors, background, visual representations etc...)
+  def draw                     # <-- says to gosu gaming library how to flesh
+    # Background                 <-- out bare game logic bones (colors, background, visual representations etc...)
     draw_quad(0, 0, @background_color,
               width, 0, @background_color,
               width, height, @background_color,
               0, height, @background_color)
 
+    # Drawing the cells
     @game.world.cells.each do |cell|
       if cell.alive?
         draw_quad(cell.x * @col_width, cell.y * @row_height, @alive_color,
@@ -54,12 +55,12 @@ class GameOfLifeWindow < Gosu::Window
                   cell.x * @col_width, (cell.y * @row_height) + @row_height, @dead_color)
       end
     end
+
   end
 
   def needs_cursor?; true; end
 
 end
-
 
 #GameOfLifeWindow.new.show
 window = GameOfLifeWindow.new
