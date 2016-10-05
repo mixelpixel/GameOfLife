@@ -1,0 +1,62 @@
+i1234567890---------2---------3---------4---------5---------6---------7-2-------8---------9---------1
+SVENs GITHUB: https://github.com/ofcan/game-of-life-ruby
+MY PLAYLIST:  https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+MY GITHUB:    https://github.com/mixelpixel/GameOfLife
+**A Ruby Tutorial: Implementing John H. Conway's "Game of Life"**
+PART 14 - Gosu Background and Variables
+https://youtu.be/bUuLTQfO1rQ?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+
+
+
+expanding on update and draw methods.
+
+Get rid of the disappearing cursor over the window:
+
+# gosu file
+ 19   def needs_cursor?; true; end
+
+
+Okay:
+  1 # Gosu file
+  2 
+  3 require 'gosu'
+  4 require_relative 'game_of_life.rb'
+  5 
+  6 class GameOfLifeWindow < Gosu::Window
+  7 
+  8   def initialize(width=800, height=400)           # <-- more flexibility w/height & widt as variables 
+  9     @width     = width
+ 10     @height    = height
+ 11     super width, height, false                    # <-- width, height, fullscreen = false
+ 12     self.caption = "Conway's Game Of Life"
+ 13 
+ 14     # Color
+ 15     @background_color = Gosu::Color.new(0xffdedede)     # <-- grey
+ 16 
+ 17   end
+ 18 
+ 19   def update                                      # <-- updates game 60 times per second
+ 20                                                   # <-- contains (or references) game logic
+ 21   end
+ 22   
+ 23   def draw                                        # <-- says to gosu gaming library how to flesh
+ 24                                                   # <-- out bare game logic bones (colors, background, visual representations etc...)
+ 25     draw_quad(0, 0, @background_color,            # <-- TOP LEFT
+ 26               width, 0, @background_color,        # <-- TOP RIGHT
+ 27               width, height, @background_color,   # <-- BOTTOM RIGHT
+ 28               0, height, @background_color)       # <-- BOTTOM LEFT
+ 29   end
+ 30 
+ 31   def needs_cursor?; true; end                    # < --Keeps cursor active over gosu window
+ 32 
+ 33 end
+ 34 
+ 35 
+ 36 #GameOfLifeWindow.new.show
+ 37 window = GameOfLifeWindow.new.show
+ 38 window.show
+
+
+
+
+
