@@ -1,0 +1,72 @@
+i1234567890---------2---------3---------4---------5---------6---------7-2-------8---------9---------1
+SVENs GITHUB: https://github.com/ofcan/game-of-life-ruby
+MY PLAYLIST:  https://www.youtube.com/playlist?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+MY GITHUB:    https://github.com/mixelpixel/GameOfLife
+**A Ruby Tutorial: Implementing John H. Conway's "Game of Life"**
+PART 16 - Drawing the Cells
+https://youtu.be/p3luB_usR5A?list=PLMC91Ry9EhRKUn0MIdgXrZiptF7nVyYoQ
+
+
+
+coloring the cells:
+# gosu
+ 1 # Gosu file
+  2 
+  3 require 'gosu'
+  4 require_relative 'game_of_life.rb'
+  5 
+  6 class GameOfLifeWindow < Gosu::Window
+  7 
+  8   def initialize(width=800, height=400)
+  9     @width     = width
+ 10     @height    = height
+ 11     super width, height, false                     # <-- width, height, fullscreen = false
+ 12     self.caption = "Conway's Game Of Life"
+ 13 
+ 14     # Color
+ 15     @background_color = Gosu::Color.new(0xffdedede)
+ 16     @alive_color = Gosu::Color.new(0xff121212)
+ 17 
+ 18     # Game itself
+ 19     @cols = width / 10
+ 20     @rows = height / 10
+ 21 
+ 22     @col_width = width / @cols                     # <--
+ 23     @row_height = height / @rows                   # <--
+ 24 
+ 25     @world = World.new(@cols, @rows)
+ 26     @game = Game.new(@world)
+ 27     @game.world.randomly_populate
+ 28 
+ 29   end
+ 30 
+ 31   def update                                  # <-- updates game 60 times per second
+ 32                                               # <-- contains (or references) game logic
+ 33   end
+ 34 
+ 35   def draw                                    # <-- says to gosu gaming library how to flesh
+ 36                                               # <-- out bare game logic bones (colors, background, visual r    epresentations etc...)
+ 37     draw_quad(0, 0, @background_color,
+ 38               width, 0, @background_color,
+ 39               width, height, @background_color,
+ 40               0, height, @background_color)
+ 41 
+ 42     @game.world.cells.each do |cell|               # <--
+ 43       if cell.alive?
+ 44 
+ 45         draw_quad(cell.x * @col_width, cell.y * @row_height, @alive_color,        # <-- assignment to finish this
+ 46                   (cell.x * @col_width) + @col_width, cell.y * @row_height, @alive_color,
+ 47                   (cell.x * @col_width) + @col_width, (cell.y * @row_height) + @row_height, @alive_color,
+ 48                   cell.x * @col_width, (cell.y * @row_height) + @row_height, @alive_color)
+ 49 
+ 50       else
+ 51       end
+ 52     end
+ 53   end
+ 54 
+ 55   def needs_cursor?; true; end
+ 56 
+ 57 end
+
+
+
