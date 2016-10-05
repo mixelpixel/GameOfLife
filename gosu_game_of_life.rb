@@ -5,8 +5,7 @@ require_relative 'game_of_life.rb'
 
 class GameOfLifeWindow < Gosu::Window
 
-  def initialize(height=800, width=400)
-
+  def initialize(height=1000, width=600)
     @height    = height
     @width     = width
     super height, width, false                     # <-- ?????width, height, fullscreen = false
@@ -45,14 +44,14 @@ class GameOfLifeWindow < Gosu::Window
     @game.world.cells.each do |cell|
       if cell.alive?
         draw_quad(cell.x * @col_width, cell.y * @row_height, @alive_color,
-                 (cell.x * @col_width) + @col_width, cell.y * @row_height, @alive_color,
-                 (cell.x * @col_width) + @col_width, (cell.y * @row_height) + @row_height, @alive_color,
-                  cell.x * @col_width, (cell.y * @row_height) + @row_height, @alive_color)
+                 (cell.x * @col_width) + (@col_width - 1), cell.y * @row_height, @alive_color,
+                 (cell.x * @col_width) + (@col_width - 1), (cell.y * @row_height) + (@row_height - 1), @alive_color,
+                  cell.x * @col_width, (cell.y * @row_height) + (@row_height - 1), @alive_color)
       else
         draw_quad(cell.x * @col_width, cell.y * @row_height, @dead_color,
-                 (cell.x * @col_width) + @col_width, cell.y * @row_height, @dead_color,
-                 (cell.x * @col_width) + @col_width, (cell.y * @row_height) + @row_height, @dead_color,
-                  cell.x * @col_width, (cell.y * @row_height) + @row_height, @dead_color)
+                 (cell.x * @col_width) + (@col_width - 1), cell.y * @row_height, @dead_color,
+                 (cell.x * @col_width) + (@col_width - 1), (cell.y * @row_height) + (@row_height - 1), @dead_color,
+                  cell.x * @col_width, (cell.y * @row_height) + (@row_height - 1), @dead_color)
       end
     end
 
